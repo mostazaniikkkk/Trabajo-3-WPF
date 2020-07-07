@@ -13,7 +13,10 @@
         mc:Ignorable="d"
         Title="Menú principal" Height="300" Width="520" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" >
 
-    <Grid>
+    <Grid x:Name="mainGrid">
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/Imagenes/BG00.png"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="100"/>
@@ -22,14 +25,14 @@
 
         <Border Grid.Row="0" Background="Transparent" MouseLeftButtonDown="Border_MouseLeftButtonDown">
             <Grid>
-                <materialDesign:ColorZone Background="LightSteelBlue">
+                <materialDesign:ColorZone x:Name="row0" Background="LightSteelBlue">
                     <StackPanel HorizontalAlignment="Right">
                         <Button x:Name="btnExit" BorderBrush="Transparent" Background="LightSteelBlue" Width="30" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth4" Padding="0" MouseEnter="btnExit_MouseEnter" MouseLeave="btnExit_MouseLeave" Click="btnExit_Click">
                             <materialDesign:PackIcon Kind="WindowClose"/>
                         </Button>
                     </StackPanel>
                 </materialDesign:ColorZone>
-                <Button x:Name="btnAltoContraste" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="30" Height="30" Background="Transparent" BorderBrush="Transparent" Padding="0" Click="btnAltoContraste_Click">
+                <Button x:Name="btnAltoContraste" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="30" Height="30" Background="LightSteelBlue" BorderBrush="Transparent" Padding="0" Click="btnAltoContraste_Click">
                     <materialDesign:PackIcon Kind="LavaLamp" Height="30" Width="30"/>
                 </Button>
             </Grid>

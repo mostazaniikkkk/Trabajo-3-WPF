@@ -38,6 +38,10 @@ namespace Trabajo_3_WPF
         private void btnExit_MouseLeave(object sender, MouseEventArgs e)
         {
             btnExit.Background = Brushes.LightSteelBlue;
+            if(btnAltoContraste.Background == Brushes.LightGreen)
+            {
+                btnExit.Background = Brushes.Gray;
+            }
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -47,7 +51,40 @@ namespace Trabajo_3_WPF
 
         private void btnAltoContraste_Click(object sender, RoutedEventArgs e)
         {
-            btnAltoContraste.Background = Brushes.Green;
+            if(btnAltoContraste.Background == Brushes.LightSteelBlue)
+            {
+                btnAltoContraste.Background = Brushes.LightGreen;
+
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new System.Uri("pack://application:,,,/Assets/Imagenes/BG01.png");
+                bitmap.EndInit();
+
+                ImageBrush _ib = new ImageBrush();
+                _ib.ImageSource = bitmap;
+                mainGrid.Background = _ib;
+
+                row0.Background = Brushes.Black;
+                btnExit.Background = Brushes.Gray;
+            }
+            else
+            {
+                btnAltoContraste.Background = Brushes.LightSteelBlue;
+
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new System.Uri("pack://application:,,,/Assets/Imagenes/BG00.png");
+                bitmap.EndInit();
+
+                ImageBrush _ib = new ImageBrush();
+                _ib.ImageSource = bitmap;
+                mainGrid.Background = _ib;
+
+                row0.Background = Brushes.LightSteelBlue;
+                btnExit.Background = Brushes.LightSteelBlue;
+            }
+            
+
         }
     }
 }
