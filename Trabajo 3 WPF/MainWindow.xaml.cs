@@ -32,7 +32,7 @@ namespace Trabajo_3_WPF
 
         private void btnExit_MouseEnter(object sender, MouseEventArgs e)
         {
-            btnExit.Background = Brushes.Red;   
+            btnExit.Background = Brushes.Salmon;   
         }
 
         private void btnExit_MouseLeave(object sender, MouseEventArgs e)
@@ -43,6 +43,11 @@ namespace Trabajo_3_WPF
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void btnAltoContraste_Click(object sender, RoutedEventArgs e)
+        {
+            btnAltoContraste.Background = Brushes.Green;
         }
     }
 }
