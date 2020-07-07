@@ -66,8 +66,7 @@ namespace Trabajo_3_WPF
 
                 row0.Background = Brushes.Black;
                 btnExit.Background = Brushes.Gray;
-            }
-            else
+            } else
             {
                 btnAltoContraste.Background = Brushes.LightSteelBlue;
 
@@ -83,8 +82,6 @@ namespace Trabajo_3_WPF
                 row0.Background = Brushes.LightSteelBlue;
                 btnExit.Background = Brushes.LightSteelBlue;
             }
-            
-
         }
     }
 }
