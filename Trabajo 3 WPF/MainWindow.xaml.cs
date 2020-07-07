@@ -24,5 +24,25 @@ namespace Trabajo_3_WPF
         {
             InitializeComponent();
         }
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void btnExit_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btnExit.Background = Brushes.Red;   
+        }
+
+        private void btnExit_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnExit.Background = Brushes.LightSteelBlue;
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
