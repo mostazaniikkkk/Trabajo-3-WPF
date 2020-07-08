@@ -18,7 +18,8 @@ namespace Trabajo_3_WPF
     /// Lógica de interacción para Window1.xaml
     /// </summary>
     public partial class AgregarCliente : Window
-    {
+    { MainWindow main1 = new MainWindow();
+        private bool isContrast { get; set; }
 
         public AgregarCliente()
         {
@@ -108,6 +109,10 @@ namespace Trabajo_3_WPF
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
             MainWindow main = new MainWindow();
+            if (btnAltoContraste.Background == Brushes.Gray) 
+            {
+                main.btnAltoContraste_Click(null, null);
+            }
             main.Show();
             this.Close();
         }

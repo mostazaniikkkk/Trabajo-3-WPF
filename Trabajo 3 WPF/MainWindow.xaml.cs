@@ -20,18 +20,9 @@ namespace Trabajo_3_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool isContrast = false;
-        public bool _isContrast { get { return isContrast; } set { isContrast = value; } }
-
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        void Window1Contrast()
-        {
-            AgregarCliente ag = new AgregarCliente();
-            
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -58,12 +49,11 @@ namespace Trabajo_3_WPF
             Application.Current.Shutdown();
         }
 
-        private void btnAltoContraste_Click(object sender, RoutedEventArgs e)
+        public void btnAltoContraste_Click(object sender, RoutedEventArgs e)
         {
             if (btnAltoContraste.Background == Brushes.LightSteelBlue)
             {
                 btnAltoContraste.Background = Brushes.Gray;
-                _isContrast = true;
 
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
@@ -81,7 +71,6 @@ namespace Trabajo_3_WPF
             else
             {
                 btnAltoContraste.Background = Brushes.LightSteelBlue;
-                _isContrast = false;
 
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
@@ -101,7 +90,7 @@ namespace Trabajo_3_WPF
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             AgregarCliente aCliente = new AgregarCliente();
-            if (_isContrast == true)
+            if (btnAltoContraste.Background == Brushes.Gray)
             {
                 aCliente.btnAltoContraste_Click(null, null);
             }
