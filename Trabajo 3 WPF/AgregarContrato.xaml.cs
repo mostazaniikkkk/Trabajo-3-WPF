@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Trabajo_3_WPF
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para AgregarContrato.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AgregarContrato : Window
     {
-        public MainWindow()
+        public AgregarContrato()
         {
             InitializeComponent();
         }
@@ -53,6 +52,7 @@ namespace Trabajo_3_WPF
         {
             if (btnAltoContraste.Background == Brushes.LightSteelBlue)
             {
+                btnVolver.Background = Brushes.Gray;
                 btnAltoContraste.Background = Brushes.Gray;
 
                 BitmapImage bitmap = new BitmapImage();
@@ -62,7 +62,7 @@ namespace Trabajo_3_WPF
 
                 ImageBrush _ib = new ImageBrush();
                 _ib.ImageSource = bitmap;
-                mainGrid.Background = _ib;
+                Window3.Background = _ib;
 
                 row0.Background = Brushes.Black;
                 btnExit.Background = Brushes.Gray;
@@ -70,6 +70,7 @@ namespace Trabajo_3_WPF
             }
             else
             {
+                btnVolver.Background = Brushes.LightSteelBlue;
                 btnAltoContraste.Background = Brushes.LightSteelBlue;
 
                 BitmapImage bitmap = new BitmapImage();
@@ -78,56 +79,36 @@ namespace Trabajo_3_WPF
                 bitmap.EndInit();
 
                 ImageBrush _ib = new ImageBrush();
-                _ib.ImageSource = bitmap; 
-                mainGrid.Background = _ib;
+                _ib.ImageSource = bitmap;
+                Window3.Background = _ib;
 
                 row0.Background = Brushes.LightSteelBlue;
                 btnExit.Background = Brushes.LightSteelBlue;
 
             }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnVolver_MouseEnter(object sender, MouseEventArgs e)
         {
-            AgregarCliente aCliente = new AgregarCliente();
-            if (btnAltoContraste.Background == Brushes.Gray)
-            {
-                aCliente.btnAltoContraste_Click(null, null);
-            }
-            aCliente.Show();
-            this.Close();
+            btnVolver.Background = Brushes.LightGreen;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void btnVolver_MouseLeave(object sender, MouseEventArgs e)
         {
-            ListarCliente lCliente = new ListarCliente();
+            btnVolver.Background = Brushes.LightSteelBlue;
             if (btnAltoContraste.Background == Brushes.Gray)
             {
-                lCliente.btnAltoContraste_Click(null, null);
+                btnVolver.Background = Brushes.Gray;
             }
-            lCliente.Show();
-            this.Close();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            AgregarContrato aContrato = new AgregarContrato();
+            MainWindow main = new MainWindow();
             if (btnAltoContraste.Background == Brushes.Gray)
             {
-                aContrato.btnAltoContraste_Click(null, null);
+                main.btnAltoContraste_Click(null, null);
             }
-            aContrato.Show();
-            this.Close();
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            ListarContrato lContrato = new ListarContrato();
-            if (btnAltoContraste.Background == Brushes.Gray)
-            {
-                lContrato.btnAltoContraste_Click(null, null);
-            }
-            lContrato.Show();
+            main.Show();
             this.Close();
         }
     }

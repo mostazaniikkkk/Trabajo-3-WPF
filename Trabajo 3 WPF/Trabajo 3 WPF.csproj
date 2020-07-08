@@ -66,13 +66,34 @@
     <Compile Include="AgregarCliente.xaml.cs">
       <DependentUpon>AgregarCliente.xaml</DependentUpon>
     </Compile>
+    <Page Include="AgregarContrato.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListarCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListarContrato.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="AgregarContrato.xaml.cs">
+      <DependentUpon>AgregarContrato.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ListarCliente.xaml.cs">
+      <DependentUpon>ListarCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListarContrato.xaml.cs">
+      <DependentUpon>ListarContrato.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

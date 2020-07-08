@@ -18,15 +18,11 @@ namespace Trabajo_3_WPF
     /// Lógica de interacción para Window1.xaml
     /// </summary>
     public partial class AgregarCliente : Window
-    { MainWindow main1 = new MainWindow();
-        private bool isContrast { get; set; }
-
+    { 
         public AgregarCliente()
         {
             InitializeComponent();
         }
-
-        
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

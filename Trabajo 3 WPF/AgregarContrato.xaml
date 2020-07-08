@@ -1,4 +1,4 @@
-﻿<Window x:Class="Trabajo_3_WPF.MainWindow"
+﻿<Window x:Class="Trabajo_3_WPF.AgregarContrato"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -11,9 +11,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trabajo_3_WPF"
         mc:Ignorable="d"
-        Title="Menú principal" Height="420" Width="550" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" >
+        Title="Window1" Height="420" Width="550" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" >
 
-    <Grid x:Name="mainGrid">
+    <Grid x:Name="Window3">
         <Grid.Background>
             <ImageBrush ImageSource="Assets/Imagenes/BG00.png"/>
         </Grid.Background>
@@ -31,11 +31,17 @@
                         </Button>
                     </StackPanel>
                 </materialDesign:ColorZone>
-                <Button x:Name="btnAltoContraste" Margin="520,30,0,-30" Width="30" Height="30" Background="LightSteelBlue" materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderBrush="Transparent" Padding="0" Click="btnAltoContraste_Click">
+                <Button x:Name="btnAltoContraste" HorizontalAlignment="Left" Margin="520,30,0,-30" Width="30" Height="30" Background="LightSteelBlue" materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderBrush="Transparent" Padding="0" Click="btnAltoContraste_Click">
                     <Button.ToolTip>
                         <TextBlock>Alto Contraste</TextBlock>
                     </Button.ToolTip>
                     <materialDesign:PackIcon Kind="lamp" Height="30" Width="30"/>
+                </Button>
+                <Button x:Name="btnVolver" HorizontalAlignment="Left" Margin="-2,-2 ,0,0" Width="30" Height="30" Background="LightSteelBlue" materialDesign:ShadowAssist.ShadowDepth="Depth1" BorderBrush="Transparent" Padding="0" MouseEnter="btnVolver_MouseEnter" MouseLeave="btnVolver_MouseLeave" Click="btnVolver_Click">
+                    <Button.ToolTip>
+                        <TextBlock>Volver al menú</TextBlock>
+                    </Button.ToolTip>
+                    <materialDesign:PackIcon Kind="ArrowBack" Height="30" Width="30"/>
                 </Button>
             </Grid>
         </Border>
@@ -44,25 +50,5 @@
                 <ImageBrush ImageSource="Assets/Imagenes/onBreakHD.png" Stretch="UniformToFill"/>
             </Label.Background>
         </Label>
-        <Button materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalAlignment="Left" Margin="138,95,0,0" BorderBrush="Transparent" Grid.Row="1" VerticalAlignment="Top" Width="135" Height="135" Click="Button_Click">
-            <Button.Background>
-                <ImageBrush ImageSource="Assets/Imagenes/agregarClienteButton1.png" Stretch="UniformToFill"/>
-            </Button.Background>
-        </Button>
-        <Button materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalAlignment="Left" Margin="278,235,0,0" BorderBrush="Transparent" Grid.Row="1" VerticalAlignment="Top" Width="135" Height="135" Click="Button_Click_3">
-            <Button.Background>
-                <ImageBrush ImageSource="Assets/Imagenes/listarContratoButton.png" Stretch="UniformToFill"/>
-            </Button.Background>
-        </Button>
-        <Button materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalAlignment="Left" Margin="278,95,0,0" BorderBrush="Transparent" Grid.Row="1" VerticalAlignment="Top" Width="135" Height="135" Click="Button_Click_1">
-            <Button.Background>
-                <ImageBrush ImageSource="Assets/Imagenes/listarClienteButton.png" Stretch="UniformToFill"/>
-            </Button.Background>
-        </Button>
-        <Button materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalAlignment="Left" Margin="138,235,0,0" BorderBrush="Transparent" Grid.Row="1" VerticalAlignment="Top" Width="135" Height="135" Click="Button_Click_2">
-            <Button.Background>
-                <ImageBrush ImageSource="Assets/Imagenes/agregarContratoButton1.png" Stretch="UniformToFill"/>
-            </Button.Background>
-        </Button>
     </Grid>
 </Window>

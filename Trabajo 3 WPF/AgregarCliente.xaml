@@ -45,6 +45,14 @@
                 </Button>
             </Grid>
         </Border>
+        <Border Grid.Row="1">
+            <Grid>
+                <StackPanel>
+                    <Label Content="RUT:" Margin="110,30,400,0" Height="28" FontStyle="Italic" Foreground="#DD020034"/>
+                    <TextBox x:Name="txtRut" Margin="150,-30,170,0" Height="24" materialDesign:HintAssist.Hint="Rut del cliente" BorderBrush="Gray" Foreground="DarkGray"/>
+                </StackPanel>
+            </Grid>
+        </Border>
         <Label Content="" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="98" Width="98">
             <Label.Background>
                 <ImageBrush ImageSource="Assets/Imagenes/onBreakHD.png" Stretch="UniformToFill"/>
