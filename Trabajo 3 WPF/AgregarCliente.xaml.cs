@@ -10,29 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Trabajo_3_WPF
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para Window1.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AgregarCliente : Window
     {
-        private bool isContrast = false;
-        public bool _isContrast { get { return isContrast; } set { isContrast = value; } }
 
-        public MainWindow()
+        public AgregarCliente()
         {
             InitializeComponent();
         }
 
-        void Window1Contrast()
-        {
-            AgregarCliente ag = new AgregarCliente();
-            
-        }
+        
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -58,12 +51,12 @@ namespace Trabajo_3_WPF
             Application.Current.Shutdown();
         }
 
-        private void btnAltoContraste_Click(object sender, RoutedEventArgs e)
+        public void btnAltoContraste_Click(object sender, RoutedEventArgs e)
         {
             if (btnAltoContraste.Background == Brushes.LightSteelBlue)
             {
+                btnVolver.Background = Brushes.Gray;
                 btnAltoContraste.Background = Brushes.Gray;
-                _isContrast = true;
 
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
@@ -72,7 +65,7 @@ namespace Trabajo_3_WPF
 
                 ImageBrush _ib = new ImageBrush();
                 _ib.ImageSource = bitmap;
-                mainGrid.Background = _ib;
+                Window1.Background = _ib;
 
                 row0.Background = Brushes.Black;
                 btnExit.Background = Brushes.Gray;
@@ -80,8 +73,8 @@ namespace Trabajo_3_WPF
             }
             else
             {
+                btnVolver.Background = Brushes.LightSteelBlue;
                 btnAltoContraste.Background = Brushes.LightSteelBlue;
-                _isContrast = false;
 
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
@@ -90,7 +83,7 @@ namespace Trabajo_3_WPF
 
                 ImageBrush _ib = new ImageBrush();
                 _ib.ImageSource = bitmap;
-                mainGrid.Background = _ib;
+                Window1.Background = _ib;
 
                 row0.Background = Brushes.LightSteelBlue;
                 btnExit.Background = Brushes.LightSteelBlue;
@@ -98,14 +91,24 @@ namespace Trabajo_3_WPF
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnVolver_MouseEnter(object sender, MouseEventArgs e)
         {
-            AgregarCliente aCliente = new AgregarCliente();
-            if (_isContrast == true)
+            btnVolver.Background = Brushes.LightGreen;
+        }
+
+        private void btnVolver_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnVolver.Background = Brushes.LightSteelBlue;
+            if (btnAltoContraste.Background == Brushes.Gray)
             {
-                aCliente.btnAltoContraste_Click(null, null);
+                btnVolver.Background = Brushes.Gray;
             }
-            aCliente.Show();
+        }
+
+        private void btnVolver_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
             this.Close();
         }
     }
