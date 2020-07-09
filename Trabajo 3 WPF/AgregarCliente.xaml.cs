@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Controlador;
+using Modelo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -67,6 +69,22 @@ namespace Trabajo_3_WPF
                 row0.Background = Brushes.Black;
                 btnExit.Background = Brushes.Gray;
 
+                lblWindow.Foreground = Brushes.LightGray;
+                lblRut.Foreground = Brushes.LightGray;
+                lblRazonSocial.Foreground = Brushes.LightGray;
+                lblNombreContacto.Foreground = Brushes.LightGray;
+                lblMailContacto.Foreground = Brushes.LightGray;
+                lblDireccion.Foreground = Brushes.LightGray;
+                lblTelefono.Foreground = Brushes.LightGray;
+
+                txtRut.Foreground = Brushes.LightGray;
+                txtRazonSocial.Foreground = Brushes.LightGray;
+                txtNombreContacto.Foreground = Brushes.LightGray;
+                txtMailContacto.Foreground = Brushes.LightGray;
+                txtDireccion.Foreground = Brushes.LightGray;
+                txtTelefono.Foreground = Brushes.LightGray;
+                btnCargarDatosAsociados.Background = Brushes.Gray;
+
             }
             else
             {
@@ -84,6 +102,22 @@ namespace Trabajo_3_WPF
 
                 row0.Background = Brushes.LightSteelBlue;
                 btnExit.Background = Brushes.LightSteelBlue;
+
+                lblWindow.Foreground = Brushes.Black;
+                lblRut.Foreground = Brushes.Black;
+                lblRazonSocial.Foreground = Brushes.Black;
+                lblNombreContacto.Foreground = Brushes.Black;
+                lblMailContacto.Foreground = Brushes.Black;
+                lblDireccion.Foreground = Brushes.Black;
+                lblTelefono.Foreground = Brushes.Black;
+
+                txtRut.Foreground = Brushes.Black;
+                txtRazonSocial.Foreground = Brushes.Black;
+                txtNombreContacto.Foreground = Brushes.Black;
+                txtMailContacto.Foreground = Brushes.Black;
+                txtDireccion.Foreground = Brushes.Black;
+                txtTelefono.Foreground = Brushes.Black;
+                btnCargarDatosAsociados.Background = Brushes.LightBlue;
 
             }
         }
@@ -110,6 +144,54 @@ namespace Trabajo_3_WPF
                 main.btnAltoContraste_Click(null, null);
             }
             main.Show();
+            this.Close();
+        }
+
+        private void btnCargarDatosAsociados_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtRut.Text != "")
+            {
+
+                ControladorCliente.CargarDatosAsociados(txtRut.Text);
+                try
+                {
+                    txtRazonSocial.Text = ModeloCliente.baseCliente[0];
+                    txtNombreContacto.Text = ModeloCliente.baseCliente[1];
+                    txtMailContacto.Text = ModeloCliente.baseCliente[2];
+                    txtDireccion.Text = ModeloCliente.baseCliente[3];
+                    txtTelefono.Text = ModeloCliente.baseCliente[4];
+                    ModeloCliente.baseCliente.Clear();
+                }
+                catch (Exception)
+                {
+                    dialog.IsOpen = true;
+                    dialog.IsEnabled = true;
+                    /*MessageBoxResult result = MessageBox.Show("No se encontraron datos asociados...");
+                    Console.WriteLine(result);*/
+                    txtRazonSocial.Text = "";
+                    txtNombreContacto.Text = "";
+                    txtMailContacto.Text = "";
+                    txtDireccion.Text = "";
+                    txtTelefono.Text = "";
+                }
+                
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            dialog.IsOpen = false;
+            dialog.IsEnabled = false;
+        }
+
+        private void btnBuscarListadoCliente_Click(object sender, RoutedEventArgs e)
+        {
+            ListarCliente listar = new ListarCliente();
+            if (btnAltoContraste.Background == Brushes.Gray)
+            {
+                listar.btnAltoContraste_Click(null, null);
+            }
+            listar.Show();
             this.Close();
         }
     }

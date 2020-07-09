@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Controlador;
+using Modelo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -66,6 +68,7 @@ namespace Trabajo_3_WPF
 
                 row0.Background = Brushes.Black;
                 btnExit.Background = Brushes.Gray;
+                lblWindow.Foreground = Brushes.LightGray;
 
             }
             else
@@ -84,7 +87,7 @@ namespace Trabajo_3_WPF
 
                 row0.Background = Brushes.LightSteelBlue;
                 btnExit.Background = Brushes.LightSteelBlue;
-
+                lblWindow.Foreground = Brushes.Black;
             }
         }
         private void btnVolver_MouseEnter(object sender, MouseEventArgs e)
@@ -110,6 +113,16 @@ namespace Trabajo_3_WPF
             }
             main.Show();
             this.Close();
+        }
+
+        private void tablaListarCliente_Initialized(object sender, EventArgs e)
+        {
+            tablaListarCliente.ItemsSource = ControladorCliente.TodosDatosClientes();
+            if (ModeloCliente._cliente.Count() > 1)
+            {
+                ModeloCliente._cliente.RemoveAt(1);
+            }
+            
         }
     }
 }

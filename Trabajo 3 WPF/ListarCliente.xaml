@@ -50,5 +50,7 @@
                 <ImageBrush ImageSource="Assets/Imagenes/onBreakHD.png" Stretch="UniformToFill"/>
             </Label.Background>
         </Label>
+        <DataGrid x:Name="tablaListarCliente" AutoGenerateColumns="True" Width="500" Margin="5,120,5,79" Grid.Row="1" Initialized="tablaListarCliente_Initialized"/>
+        <Label x:Name="lblWindow" Content="Listar Clientes" HorizontalAlignment="Left" Margin="240,20,0,0" VerticalAlignment="Top" FontFamily="Script MT Bold" FontWeight="Normal" FontSize="17" Grid.Row="1" Width="117"/>
     </Grid>
 </Window>

@@ -45,18 +45,43 @@
                 </Button>
             </Grid>
         </Border>
-        <Border Grid.Row="1">
-            <Grid>
-                <StackPanel>
-                    <Label Content="RUT:" Margin="110,30,400,0" Height="28" FontStyle="Italic" Foreground="#DD020034"/>
-                    <TextBox x:Name="txtRut" Margin="150,-30,170,0" Height="24" materialDesign:HintAssist.Hint="Rut del cliente" BorderBrush="Gray" Foreground="DarkGray"/>
-                </StackPanel>
-            </Grid>
-        </Border>
         <Label Content="" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="98" Width="98">
             <Label.Background>
                 <ImageBrush ImageSource="Assets/Imagenes/onBreakHD.png" Stretch="UniformToFill"/>
             </Label.Background>
         </Label>
+        <Label x:Name="lblWindow" Content="Agregar Cliente" HorizontalAlignment="Left" Margin="240,5,0,0" VerticalAlignment="Top" FontFamily="Script MT Bold" FontWeight="Normal" FontSize="17" Grid.Row="1"/>
+        <Label x:Name="lblRut" Content="RUT:" Height="24" Margin="182,47,331,319" Grid.Row="1" FontStyle="Italic"/>
+        <Label x:Name="lblRazonSocial" Content="Razón social:" Height="24" Margin="129,74,331,292" Grid.Row="1" FontStyle="Italic"/>
+        <Label x:Name="lblNombreContacto" Content="Nombre contacto:" Height="24" Margin="98,99,331,267" Grid.Row="1" FontStyle="Italic"/>
+        <Label x:Name="lblMailContacto" Content="Mail contacto:" Height="24" Margin="119,124,331,242" Grid.Row="1" FontStyle="Italic"/>
+        <Label x:Name="lblDireccion" Content="Dirección:" Height="24" Margin="144,149,331,217" Grid.Row="1" FontStyle="Italic"/>
+        <Label x:Name="lblTelefono" Content="Teléfono:" Height="24" Margin="148,175,331,191" Grid.Row="1" FontStyle="Italic"/>
+        <TextBox x:Name="txtRut" HorizontalAlignment="Left" Height="25" Margin="219,48,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <Button  x:Name="btnCargarDatosAsociados" HorizontalAlignment="Left" Margin="398,44,0,0" Grid.Row="1" VerticalAlignment="Top" Width="28" Height="27" Click="btnCargarDatosAsociados_Click" Padding="0" Background="LightBlue" BorderBrush="Transparent" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+            <Button.ToolTip>
+                <TextBlock>Cargar datos asociados al RUT</TextBlock>
+            </Button.ToolTip>
+            <materialDesign:PackIcon Kind="ArrowBottom"/>
+        </Button>
+        <TextBox x:Name="txtRazonSocial" HorizontalAlignment="Left" Height="25" Margin="219,73,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <TextBox x:Name="txtNombreContacto" HorizontalAlignment="Left" Height="25" Margin="219,98,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <TextBox x:Name="txtMailContacto" HorizontalAlignment="Left" Height="25" Margin="219,123,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <TextBox x:Name="txtDireccion" HorizontalAlignment="Left" Height="25" Margin="219,148,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <TextBox x:Name="txtTelefono" HorizontalAlignment="Left" Height="25" Margin="219,174,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
+        <Button  x:Name="btnBuscarListadoCliente" HorizontalAlignment="Left" Margin="302,204,0,0" Grid.Row="1" VerticalAlignment="Top" Width="28" Height="27" Click="btnBuscarListadoCliente_Click" Padding="0" Background="Blue" BorderBrush="Transparent" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+            <Button.ToolTip>
+                <TextBlock>Buscar en listado de clientes</TextBlock>
+            </Button.ToolTip>
+            <materialDesign:PackIcon Kind="Search"/>
+        </Button>
+        <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialog" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="15">
+                    <TextBlock Text="No se encontraron datos asociados..."/>
+                    <Button VerticalAlignment="Center" Click="Button_Click" Content="Aceptar" HorizontalAlignment="Center" Margin="0,20,0,0" Width="86" Height="23"/>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 </Window>
