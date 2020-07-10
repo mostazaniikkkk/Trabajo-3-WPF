@@ -74,6 +74,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ListarClienteEmergente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ListarContrato.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -91,6 +95,9 @@
     </Compile>
     <Compile Include="ListarCliente.xaml.cs">
       <DependentUpon>ListarCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListarClienteEmergente.xaml.cs">
+      <DependentUpon>ListarClienteEmergente.xaml</DependentUpon>
     </Compile>
     <Compile Include="ListarContrato.xaml.cs">
       <DependentUpon>ListarContrato.xaml</DependentUpon>

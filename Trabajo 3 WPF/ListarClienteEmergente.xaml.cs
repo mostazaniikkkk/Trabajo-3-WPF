@@ -17,32 +17,14 @@ using System.Windows.Shapes;
 namespace Trabajo_3_WPF
 {
     /// <summary>
-    /// Lógica de interacción para ListarCliente.xaml
+    /// Lógica de interacción para ListarClienteEmergente.xaml
     /// </summary>
-    public partial class ListarCliente : Window
+    public partial class ListarClienteEmergente : Window
     {
-        public ListarCliente()
+        public ListarClienteEmergente()
         {
             InitializeComponent();
-            comboEmpresa.Items.Add("Seleccionar.");
-            comboEmpresa.Items.Add("SPA.");
-            comboEmpresa.Items.Add("EIRL.");
-            comboEmpresa.Items.Add("Limitada.");
-            comboEmpresa.Items.Add("Sociedad Anónima.");
-            comboEmpresa.SelectedIndex = 0;
-
-            comboActividad.Items.Add("Seleccionar.");
-            comboActividad.Items.Add("Agropecuaria.");
-            comboActividad.Items.Add("Minería.");
-            comboActividad.Items.Add("Manufactura.");
-            comboActividad.Items.Add("Comercio.");
-            comboActividad.Items.Add("Hotelería.");
-            comboActividad.Items.Add("Alimentos.");
-            comboActividad.Items.Add("Transporte.");
-            comboActividad.Items.Add("Servicios.");
-            comboActividad.SelectedIndex = 0;
         }
-
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -71,7 +53,6 @@ namespace Trabajo_3_WPF
         {
             if (btnAltoContraste.Background == Brushes.LightSteelBlue)
             {
-                btnVolver.Background = Brushes.Gray;
                 btnAltoContraste.Background = Brushes.Gray;
 
                 BitmapImage bitmap = new BitmapImage();
@@ -81,7 +62,7 @@ namespace Trabajo_3_WPF
 
                 ImageBrush _ib = new ImageBrush();
                 _ib.ImageSource = bitmap;
-                ListarClienteGeneral.Background = _ib;
+                ListarClienteTemporal.Background = _ib;
 
                 row0.Background = Brushes.Black;
                 btnExit.Background = Brushes.Gray;
@@ -90,7 +71,6 @@ namespace Trabajo_3_WPF
             }
             else
             {
-                btnVolver.Background = Brushes.LightSteelBlue;
                 btnAltoContraste.Background = Brushes.LightSteelBlue;
 
                 BitmapImage bitmap = new BitmapImage();
@@ -100,36 +80,12 @@ namespace Trabajo_3_WPF
 
                 ImageBrush _ib = new ImageBrush();
                 _ib.ImageSource = bitmap;
-                ListarClienteGeneral.Background = _ib;
+                ListarClienteTemporal.Background = _ib;
 
                 row0.Background = Brushes.LightSteelBlue;
                 btnExit.Background = Brushes.LightSteelBlue;
                 lblWindow.Foreground = Brushes.Black;
             }
-        }
-        private void btnVolver_MouseEnter(object sender, MouseEventArgs e)
-        {
-            btnVolver.Background = Brushes.LightGreen;
-        }
-
-        private void btnVolver_MouseLeave(object sender, MouseEventArgs e)
-        {
-            btnVolver.Background = Brushes.LightSteelBlue;
-            if (btnAltoContraste.Background == Brushes.Gray)
-            {
-                btnVolver.Background = Brushes.Gray;
-            }
-        }
-
-        private void btnVolver_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow main = new MainWindow();
-            if (btnAltoContraste.Background == Brushes.Gray)
-            {
-                main.btnAltoContraste_Click(null, null);
-            }
-            main.Show();
-            this.Close();
         }
 
         private void tablaListarCliente_Initialized(object sender, EventArgs e)
@@ -139,22 +95,42 @@ namespace Trabajo_3_WPF
             {
                 ModeloCliente._cliente.RemoveAt(1);
             }
+
+        }
+
+        private void tablaListarCliente_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var grid = sender as DataGrid;
+            var selected = grid.SelectedItems;
+
+            foreach (var item in selected)
+            {
+                var cliente = item as ModeloCliente;
+                ModeloCliente.names.Add(cliente.RutCliente);
+                ModeloCliente.names.Add(cliente.RazonSocial);
+                ModeloCliente.names.Add(cliente.NombreContacto);
+                ModeloCliente.names.Add(cliente.MailContacto);
+                ModeloCliente.names.Add(cliente.Direccion);
+                ModeloCliente.names.Add(cliente.Telefono);
+            }
             
-        }
+            AgregarCliente aCliente = new AgregarCliente();
+            aCliente.txtRut.Text = ModeloCliente.names[0].ToString();
+            aCliente.txtRazonSocial.Text = ModeloCliente.names[1].ToString();
+            aCliente.txtNombreContacto.Text = ModeloCliente.names[2].ToString();
+            aCliente.txtMailContacto.Text = ModeloCliente.names[3].ToString();
+            aCliente.txtDireccion.Text = ModeloCliente.names[4].ToString();
+            aCliente.txtTelefono.Text = ModeloCliente.names[5].ToString();
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
+            ModeloCliente.names.Clear();
 
-        }
+            if(btnAltoContraste.Background == Brushes.Gray)
+            {
+                aCliente.btnAltoContraste_Click(null, null);
+            }
 
-        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CheckBox_Checked_2(object sender, RoutedEventArgs e)
-        {
-
+            aCliente.Show();
+            this.Close();
         }
     }
 }

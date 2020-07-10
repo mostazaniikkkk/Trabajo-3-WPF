@@ -84,6 +84,7 @@ namespace Trabajo_3_WPF
                 txtDireccion.Foreground = Brushes.LightGray;
                 txtTelefono.Foreground = Brushes.LightGray;
                 btnCargarDatosAsociados.Background = Brushes.Gray;
+                btnLimpiarDatos.Background = Brushes.Gray;
 
             }
             else
@@ -117,7 +118,8 @@ namespace Trabajo_3_WPF
                 txtMailContacto.Foreground = Brushes.Black;
                 txtDireccion.Foreground = Brushes.Black;
                 txtTelefono.Foreground = Brushes.Black;
-                btnCargarDatosAsociados.Background = Brushes.LightBlue;
+                btnCargarDatosAsociados.Background = Brushes.DodgerBlue;
+                btnLimpiarDatos.Background = Brushes.DodgerBlue;
 
             }
         }
@@ -186,13 +188,76 @@ namespace Trabajo_3_WPF
 
         private void btnBuscarListadoCliente_Click(object sender, RoutedEventArgs e)
         {
-            ListarCliente listar = new ListarCliente();
+            ListarClienteEmergente listar = new ListarClienteEmergente();
             if (btnAltoContraste.Background == Brushes.Gray)
             {
                 listar.btnAltoContraste_Click(null, null);
             }
-            listar.Show();
-            this.Close();
+            if (ControladorCliente.isFilasTablaCliente())
+            {
+                listar.Show();
+                this.Close();
+            }
+            else
+            {
+                dialogIsData.IsEnabled = true;
+                dialogIsData.IsOpen = true;
+            }
+        }
+
+        private void btnLimpiarDatos_Click(object sender, RoutedEventArgs e)
+        {
+            txtRut.Text = "";
+            txtRazonSocial.Text = "";
+            txtNombreContacto.Text = "";
+            txtMailContacto.Text = "";
+            txtDireccion.Text = "";
+            txtTelefono.Text = "";
+        }
+
+        private void btnEliminarCliente_Click(object sender, RoutedEventArgs e)
+        {
+            if(txtRut.Text != "")
+            {
+                if (ControladorCliente.isMoreDataCliente(txtRut.Text))
+                {
+                    if (!ControladorContrato.RetornarExisteRutContrato(txtRut.Text))
+                    {
+                        ControladorCliente.EliminarClienteAsociado(txtRut.Text);
+                        dialogClienteEliminado.IsEnabled = true;
+                        dialogClienteEliminado.IsOpen = true;
+                        ModeloCliente._cliente.Clear();
+                    }
+                    else
+                    {
+                        dialogEliminar.IsEnabled = true;
+                        dialogEliminar.IsOpen = true;
+                    }
+                }
+                else
+                {
+                    dialog.IsEnabled = true;
+                    dialog.IsOpen = true;
+                }
+            }     
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            dialogEliminar.IsEnabled = false;
+            dialogEliminar.IsOpen = false;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            dialogClienteEliminado.IsEnabled = false;
+            dialogClienteEliminado.IsOpen = false;
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            dialogIsData.IsEnabled = false;
+            dialogIsData.IsOpen = false;
         }
     }
 }

@@ -8,6 +8,8 @@ namespace Modelo
 {
     public class ModeloCliente
     {
+        //para traer datos de listaCliente a agregarCliente
+        public static List<string> names = new List<string>();
         //para traer datos sql
         public static List<string> baseCliente = new List<string>();
 

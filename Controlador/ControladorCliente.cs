@@ -81,5 +81,83 @@ namespace Controlador
                 }
             }
         }
+        /*Elimina el cliente y todos los datos asociados, debido a que no tiene un contrato asociado*/
+        public static void EliminarClienteAsociado(string rut)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+
+                command.CommandText = "DELETE FROM dbo.Cliente WHERE RutCliente = @rut";
+                command.Parameters.AddWithValue("@rut", rut);
+
+                //Abrir conexión y ejecutar query
+                try
+                {
+                    connection.Open();
+                    Int32 rowsAffected = command.ExecuteNonQuery();
+                    Console.WriteLine(rowsAffected);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+                connection.Close();
+            }
+        }
+
+        //Retorna true si es que se encuentran datos asociados al cliente
+        public static bool isMoreDataCliente(string rut)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+                command.CommandText = "SELECT RutCliente FROM dbo.Cliente WHERE RutCliente = @rut";
+                command.Parameters.AddWithValue("@rut", rut);
+
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                try
+                {
+                    Console.WriteLine(dt.Rows[0][0].ToString());
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        //Devuelve si hay filas dentro de la tabla cliente en la base de datos
+        public static bool isFilasTablaCliente()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+                command.CommandText = "SELECT COUNT(*) FROM dbo.Cliente";
+
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                if(int.Parse(dt.Rows[0][0].ToString()) > 0)
+                {
+                    Console.WriteLine(dt.Rows[0][0].ToString());
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
