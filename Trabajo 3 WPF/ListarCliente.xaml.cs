@@ -107,6 +107,7 @@ namespace Trabajo_3_WPF
                 lblWindow.Foreground = Brushes.Black;
             }
         }
+
         private void btnVolver_MouseEnter(object sender, MouseEventArgs e)
         {
             btnVolver.Background = Brushes.LightGreen;
@@ -142,19 +143,46 @@ namespace Trabajo_3_WPF
             
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void checkRut_Click(object sender, RoutedEventArgs e)
         {
-
+            if (checkRut.IsChecked.Value)
+            {
+                lblRut.Visibility = Visibility.Visible;
+                txtRut.Visibility = Visibility.Visible;
+            }
+            if (!checkRut.IsChecked.Value)
+            {
+                lblRut.Visibility = Visibility.Collapsed;
+                txtRut.Visibility = Visibility.Collapsed;
+            }
         }
 
-        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
+        private void checkEmpresa_Click(object sender, RoutedEventArgs e)
         {
-
+            if (checkEmpresa.IsChecked.Value)
+            {
+                lblEmpresa.Visibility = Visibility.Visible;
+                comboEmpresa.Visibility = Visibility.Visible;
+            }
+            if (!checkEmpresa.IsChecked.Value)
+            {
+                lblEmpresa.Visibility = Visibility.Collapsed;
+                comboEmpresa.Visibility = Visibility.Collapsed;
+            }
         }
 
-        private void CheckBox_Checked_2(object sender, RoutedEventArgs e)
+        private void checkActividad_Click(object sender, RoutedEventArgs e)
         {
-
+            if (checkActividad.IsChecked.Value)
+            {
+                lblActividad.Visibility = Visibility.Visible;
+                comboActividad.Visibility = Visibility.Visible;
+            }
+            if (!checkActividad.IsChecked.Value)
+            {
+                lblActividad.Visibility = Visibility.Collapsed;
+                comboActividad.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

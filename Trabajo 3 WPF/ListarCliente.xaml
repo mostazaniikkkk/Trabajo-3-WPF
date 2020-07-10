@@ -52,15 +52,15 @@
         </Label>
         <DataGrid x:Name="tablaListarCliente" AutoGenerateColumns="True" Margin="24,169,132,30" Grid.Row="1" Initialized="tablaListarCliente_Initialized"/>
         <Label x:Name="lblWindow" Content="Listar Clientes" HorizontalAlignment="Left" Margin="237,10,0,0" VerticalAlignment="Top" FontFamily="Script MT Bold" FontWeight="Normal" FontSize="17" Grid.Row="1" Width="117"/>
-        <CheckBox Content="Rut" HorizontalAlignment="Left" Margin="418,211,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="CheckBox_Checked" FontStyle="Italic"/>
-        <CheckBox Content="Tipo de empresa" HorizontalAlignment="Left" Margin="418,235,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="CheckBox_Checked_1" FontStyle="Italic"/>
-        <CheckBox Content="Actividad" HorizontalAlignment="Left" Margin="418,259,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="CheckBox_Checked_2" FontStyle="Italic"/>
+        <CheckBox x:Name="checkRut" Content="Rut" HorizontalAlignment="Left" Margin="418,211,0,0" Grid.Row="1" VerticalAlignment="Top" Click="checkRut_Click" FontStyle="Italic"/>
+        <CheckBox x:Name="checkEmpresa" Content="Tipo de empresa" HorizontalAlignment="Left" Margin="418,235,0,0" Grid.Row="1" VerticalAlignment="Top" Click="checkEmpresa_Click" FontStyle="Italic"/>
+        <CheckBox x:Name="checkActividad" Content="Actividad" HorizontalAlignment="Left" Margin="418,259,0,0" Grid.Row="1" VerticalAlignment="Top" Click="checkActividad_Click" FontStyle="Italic"/>
         <Label Content="Filtrar por:" HorizontalAlignment="Left" Margin="418,169,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="#DD434344"/>
-        <Label Content="RUT:" HorizontalAlignment="Left" Margin="117,49,0,0" Grid.Row="1" VerticalAlignment="Top" FontStyle="Italic"/>
-        <Label Content="Empresa:" HorizontalAlignment="Left" Margin="90,79,0,0" Grid.Row="1" VerticalAlignment="Top" FontStyle="Italic"/>
-        <Label Content="Actividad:" HorizontalAlignment="Left" Margin="84,113,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.548,0.4" FontStyle="Italic"/>
-        <TextBox x:Name="txtRut" HorizontalAlignment="Left" Height="25" Margin="155,49,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="comboEmpresa" HorizontalAlignment="Left" Margin="155,79,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="25"/>
-        <ComboBox x:Name="comboActividad" HorizontalAlignment="Left" Margin="155,109,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="25"/>
+        <Label x:Name="lblRut" Content="RUT:" Visibility="Collapsed" HorizontalAlignment="Left" Margin="117,49,0,0" Grid.Row="1" VerticalAlignment="Top" FontStyle="Italic"/>
+        <Label x:Name="lblEmpresa" Content="Empresa:" Visibility="Collapsed" HorizontalAlignment="Left" Margin="90,79,0,0" Grid.Row="1" VerticalAlignment="Top" FontStyle="Italic"/>
+        <Label x:Name="lblActividad" Content="Actividad:" Visibility="Collapsed" HorizontalAlignment="Left" Margin="84,113,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.548,0.4" FontStyle="Italic"/>
+        <TextBox x:Name="txtRut" Visibility="Collapsed" HorizontalAlignment="Left" Height="25" Margin="155,49,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="comboEmpresa" Visibility="Collapsed" HorizontalAlignment="Left" Margin="155,79,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="25"/>
+        <ComboBox x:Name="comboActividad" Visibility="Collapsed" HorizontalAlignment="Left" Margin="155,109,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="25"/>
     </Grid>
 </Window>
