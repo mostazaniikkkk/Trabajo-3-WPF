@@ -50,7 +50,7 @@
                 <ImageBrush ImageSource="Assets/Imagenes/onBreakHD.png" Stretch="UniformToFill"/>
             </Label.Background>
         </Label>
-        <DataGrid x:Name="tablaListarCliente" AutoGenerateColumns="True" Margin="24,169,132,30" Grid.Row="1" Initialized="tablaListarCliente_Initialized"/>
+        <DataGrid x:Name="tablaListarCliente" AutoGenerateColumns="True" Margin="24,169,132,30" Grid.Row="1" Initialized="tablaListarCliente_Initialized" Loaded="tablaListarCliente_Loaded"/>
         <Label x:Name="lblWindow" Content="Listar Clientes" HorizontalAlignment="Left" Margin="237,10,0,0" VerticalAlignment="Top" FontFamily="Script MT Bold" FontWeight="Normal" FontSize="17" Grid.Row="1" Width="117"/>
         <CheckBox x:Name="checkRut" Content="Rut" HorizontalAlignment="Left" Margin="418,211,0,0" Grid.Row="1" VerticalAlignment="Top" Click="checkRut_Click" FontStyle="Italic"/>
         <CheckBox x:Name="checkEmpresa" Content="Tipo de empresa" HorizontalAlignment="Left" Margin="418,235,0,0" Grid.Row="1" VerticalAlignment="Top" Click="checkEmpresa_Click" FontStyle="Italic"/>

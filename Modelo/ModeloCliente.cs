@@ -25,7 +25,7 @@ namespace Modelo
         public string Telefono { get; set; }
 
         static ModeloCliente instancia;
-        private ModeloCliente() { }
+        public ModeloCliente() { }
 
         public static ModeloCliente Singleton
         {
