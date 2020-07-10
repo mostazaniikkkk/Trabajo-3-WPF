@@ -163,35 +163,80 @@ namespace Controlador
 
         /*Ordena dataGrid de listarCliente según el orden especificado por el cliente 
         en la ventana*/
-        public static List<ModeloCliente> OrderByListarCliente(string order1, string order2, string order3)
+        public static List<ModeloCliente> FiltrarListarCliente(string rut, string empresa, int actividad)
         {
+            int id = 0;
+            if(empresa == "SPA")
+            {
+                id = 10;
+            }
+            if (empresa == "EIRL")
+            {
+                id = 20;
+            }
+            if (empresa == "Limitada")
+            {
+                id = 30;
+            }
+            if (empresa == "Sociedad Anónima")
+            {
+                id = 40;
+            }
+            Console.WriteLine(id+"id");
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(null, connection);
 
                 do
                 {
-                    if (order1 == "RutCliente" || order1 == "IdTipoEmpresa" || order1 == "IdActividadEmpresa")
+                    if (rut != null && empresa == null && actividad == 0)
                     {
-                        if(order2 == "RutCliente" || order2 == "IdTipoEmpresa" || order2 == "IdActividadEmpresa")
-                        {
-                            if(order3 == "RutCliente" || order3 == "IdTipoEmpresa" || order3 == "IdActividadEmpresa")
-                            {
-                                command.CommandText = "SELECT * FROM dbo.Cliente ORDER BY @order1, @order2, @order3";
-                                command.Parameters.AddWithValue("@order1", order1);
-                                command.Parameters.AddWithValue("@order2", order2);
-                                command.Parameters.AddWithValue("@order3", order3);
-                                break;
-                            }
-                            command.CommandText = "SELECT * FROM dbo.Cliente ORDER BY @order1, @order2";
-                            command.Parameters.AddWithValue("@order1", order1);
-                            command.Parameters.AddWithValue("@order2", order2);
-                            break;
-                        }
-                        command.CommandText = "SELECT * FROM dbo.Cliente ORDER BY @order1";
-                        command.Parameters.AddWithValue("@order1", order1);
+                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @rut";
+                        command.Parameters.AddWithValue("@rut", rut);
                         break;
                     }
+                    if (rut == null && empresa != null && actividad == 0)
+                    {
+                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @empresa";
+                        command.Parameters.AddWithValue("@empresa", empresa);
+                        break;
+                    }
+                    if (rut == null && empresa == null && actividad > 0)
+                    {
+                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @actividad";
+                        command.Parameters.AddWithValue("@actividad", actividad);
+                        break;
+                    }
+                    if (rut != null && empresa != null && actividad == 0)
+                    {
+                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @rut AND IdTipoEmpresa = @empresa";
+                        command.Parameters.AddWithValue("@rut", rut);
+                        command.Parameters.AddWithValue("@empresa", id);
+                        break;
+                    }
+                    if (rut == null && empresa != null && actividad > 0)
+                    {
+                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE IdTipoEmpresa = @empresa AND IdActividadEmpresa = @actividad";
+                        command.Parameters.AddWithValue("@empresa", empresa);
+                        command.Parameters.AddWithValue("@actividad", actividad);
+                        break;
+                    }
+                    if (rut != null && empresa == null && actividad > 0)
+                    {
+                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @rut AND IdActividadEmpresa = @actividad";
+                        command.Parameters.AddWithValue("@rut", rut);
+                        command.Parameters.AddWithValue("@actividad", actividad);
+                        break;
+                    }
+                    if (rut != null && empresa != null && actividad > 0)
+                    {
+                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @rut AND IdTipoEmpresa = @empresa AND IdActividadEmpresa = @actividad";
+                        command.Parameters.AddWithValue("@rut", rut);
+                        command.Parameters.AddWithValue("@empresa", id);
+                        command.Parameters.AddWithValue("@actividad", actividad);
+                        break;
+                    }
+                    break; 
                 } while (true);
 
                 connection.Open();
