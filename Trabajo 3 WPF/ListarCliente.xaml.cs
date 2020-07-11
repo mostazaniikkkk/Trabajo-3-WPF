@@ -135,6 +135,7 @@ namespace Trabajo_3_WPF
 
         private void tablaListarCliente_Initialized(object sender, EventArgs e)
         {
+            ModeloCliente._cliente.Clear();
             tablaListarCliente.ItemsSource = null;
             tablaListarCliente.ItemsSource = ControladorCliente.TodosDatosClientes();
         }
@@ -144,7 +145,7 @@ namespace Trabajo_3_WPF
             if (checkRut.IsChecked.Value)
             {
                 lblRut.Visibility = Visibility.Visible;
-                txtRut.Visibility = Visibility.Visible;
+                txtRut.Visibility = Visibility.Visible; 
             }
             if (!checkRut.IsChecked.Value)
             {

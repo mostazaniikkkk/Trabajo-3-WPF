@@ -20,7 +20,7 @@ namespace Controlador
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(null, connection);
-                command.CommandText = "SELECT RazonSocial, NombreContacto, MailContacto, Direccion, Telefono FROM dbo.Cliente WHERE RutCliente = @rut";
+                command.CommandText = "SELECT RazonSocial, NombreContacto, MailContacto, Direccion, Telefono, IdActividadEmpresa, IdTipoEmpresa FROM dbo.Cliente WHERE RutCliente = @rut";
                 command.Parameters.AddWithValue("@rut", rut);
 
                 connection.Open();
@@ -38,7 +38,8 @@ namespace Controlador
                         ModeloCliente.baseCliente.Add(row["MailContacto"].ToString());
                         ModeloCliente.baseCliente.Add(row["Direccion"].ToString());
                         ModeloCliente.baseCliente.Add(row["Telefono"].ToString());
-                        //ModeloCliente.baseCliente.Add(ModeloCliente.Singleton.ToString());
+                        ModeloCliente.baseCliente.Add(row["IdActividadEmpresa"].ToString());
+                        ModeloCliente.baseCliente.Add(row["IdTipoEmpresa"].ToString());
                     }
                 }
                 catch
@@ -72,6 +73,8 @@ namespace Controlador
                         modelo.MailContacto = row["MailContacto"].ToString();
                         modelo.Direccion = row["Direccion"].ToString();
                         modelo.Telefono = row["Telefono"].ToString();
+                        modelo.IdActividadEmpresa = int.Parse(row["IdActividadEmpresa"].ToString());
+                        modelo.IdTipoEmpresa = int.Parse(row["IdTipoEmpresa"].ToString());
                         ModeloCliente._cliente.Add(modelo);
                     }
                     return ModeloCliente._cliente;
@@ -82,6 +85,62 @@ namespace Controlador
                 }
             }
         }
+
+        public static void AgregarCliente(string rut, string razonSocial, string nombreContacto, string mailContacto, string direccion, string telefono, string empresa, int actividad)
+        {
+            int id = 0;
+            do
+            {
+                if (empresa == "SPA")
+                {
+                    id = 10;
+                }
+                if (empresa == "EIRL")
+                {
+                    id = 20;
+                }
+                if (empresa == "Limitada")
+                {
+                    id = 30;
+                }
+                if (empresa == "Sociedad Anónima")
+                {
+                    id = 40;
+                }
+                break;
+            } while (true);
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+
+                command.CommandText = "INSERT INTO dbo.Cliente(RutCliente, RazonSocial, NombreContacto, MailContacto, Direccion, Telefono, IdActividadEmpresa, IdTipoEmpresa) VALUES (@rut, @razonSocial, @nombreContacto, @mailContacto, @direccion, @telefono, @actividad, @empresa)";
+                command.Parameters.AddWithValue("@rut", rut);
+                command.Parameters.AddWithValue("@razonSocial", razonSocial);
+                command.Parameters.AddWithValue("@nombreContacto", nombreContacto);
+                command.Parameters.AddWithValue("@mailContacto", mailContacto);
+                command.Parameters.AddWithValue("@direccion", direccion);
+                command.Parameters.AddWithValue("@telefono", telefono);
+                command.Parameters.AddWithValue("@actividad", actividad);
+                command.Parameters.AddWithValue("@empresa", id);
+                
+
+                //Abrir conexión y ejecutar query
+                try
+                {
+                    connection.Open();
+                    Int32 rowsAffected = command.ExecuteNonQuery();
+                    Console.WriteLine(rowsAffected);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    throw;
+                }
+
+                connection.Close();
+            }
+        }
+
         /*Elimina el cliente y todos los datos asociados, debido a que no tiene un contrato asociado*/
         public static void EliminarClienteAsociado(string rut)
         {
@@ -193,6 +252,8 @@ namespace Controlador
                         modelo.MailContacto = row["MailContacto"].ToString();
                         modelo.Direccion = row["Direccion"].ToString();
                         modelo.Telefono = row["Telefono"].ToString();
+                        modelo.IdActividadEmpresa = int.Parse(row["IdActividadEmpresa"].ToString());
+                        modelo.IdTipoEmpresa = int.Parse(row["IdTipoEmpresa"].ToString());
                         ModeloCliente._cliente.Add(modelo);
                     }
                     return ModeloCliente._cliente;
@@ -253,6 +314,8 @@ namespace Controlador
                         modelo.MailContacto = row["MailContacto"].ToString();
                         modelo.Direccion = row["Direccion"].ToString();
                         modelo.Telefono = row["Telefono"].ToString();
+                        modelo.IdActividadEmpresa = int.Parse(row["IdActividadEmpresa"].ToString());
+                        modelo.IdTipoEmpresa = int.Parse(row["IdTipoEmpresa"].ToString());
                         ModeloCliente._cliente.Add(modelo);
                     }
                     return ModeloCliente._cliente;
@@ -291,6 +354,8 @@ namespace Controlador
                         modelo.MailContacto = row["MailContacto"].ToString();
                         modelo.Direccion = row["Direccion"].ToString();
                         modelo.Telefono = row["Telefono"].ToString();
+                        modelo.IdActividadEmpresa = int.Parse(row["IdActividadEmpresa"].ToString());
+                        modelo.IdTipoEmpresa = int.Parse(row["IdTipoEmpresa"].ToString());
                         ModeloCliente._cliente.Add(modelo);
                     }
                     return ModeloCliente._cliente;
@@ -352,6 +417,8 @@ namespace Controlador
                         modelo.MailContacto = row["MailContacto"].ToString();
                         modelo.Direccion = row["Direccion"].ToString();
                         modelo.Telefono = row["Telefono"].ToString();
+                        modelo.IdActividadEmpresa = int.Parse(row["IdActividadEmpresa"].ToString());
+                        modelo.IdTipoEmpresa = int.Parse(row["IdTipoEmpresa"].ToString());
                         ModeloCliente._cliente.Add(modelo);
                     }
                     return ModeloCliente._cliente;
@@ -412,6 +479,8 @@ namespace Controlador
                         modelo.MailContacto = row["MailContacto"].ToString();
                         modelo.Direccion = row["Direccion"].ToString();
                         modelo.Telefono = row["Telefono"].ToString();
+                        modelo.IdActividadEmpresa = int.Parse(row["IdActividadEmpresa"].ToString());
+                        modelo.IdTipoEmpresa = int.Parse(row["IdTipoEmpresa"].ToString());
                         ModeloCliente._cliente.Add(modelo);
                     }
                     return ModeloCliente._cliente;
@@ -472,6 +541,8 @@ namespace Controlador
                         modelo.MailContacto = row["MailContacto"].ToString();
                         modelo.Direccion = row["Direccion"].ToString();
                         modelo.Telefono = row["Telefono"].ToString();
+                        modelo.IdActividadEmpresa = int.Parse(row["IdActividadEmpresa"].ToString());
+                        modelo.IdTipoEmpresa = int.Parse(row["IdTipoEmpresa"].ToString());
                         ModeloCliente._cliente.Add(modelo);
                     }
                     return ModeloCliente._cliente;
@@ -511,6 +582,8 @@ namespace Controlador
                         modelo.MailContacto = row["MailContacto"].ToString();
                         modelo.Direccion = row["Direccion"].ToString();
                         modelo.Telefono = row["Telefono"].ToString();
+                        modelo.IdActividadEmpresa = int.Parse(row["IdActividadEmpresa"].ToString());
+                        modelo.IdTipoEmpresa = int.Parse(row["IdTipoEmpresa"].ToString());
                         ModeloCliente._cliente.Add(modelo);
                     }
                     return ModeloCliente._cliente;

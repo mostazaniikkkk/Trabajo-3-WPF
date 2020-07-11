@@ -23,6 +23,9 @@ namespace Modelo
         public string MailContacto { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
+        public int IdActividadEmpresa { get; set; }
+        public int IdTipoEmpresa { get; set; }
+
 
         static ModeloCliente instancia;
         public ModeloCliente() { }

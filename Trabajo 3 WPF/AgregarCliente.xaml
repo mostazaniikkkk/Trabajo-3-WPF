@@ -56,7 +56,7 @@
         <Label x:Name="lblNombreContacto" Content="Nombre contacto:" Height="24" Margin="98,99,331,267" Grid.Row="1" FontStyle="Italic"/>
         <Label x:Name="lblMailContacto" Content="Mail contacto:" Height="24" Margin="119,124,331,242" Grid.Row="1" FontStyle="Italic"/>
         <Label x:Name="lblDireccion" Content="Dirección:" Height="24" Margin="144,149,331,217" Grid.Row="1" FontStyle="Italic"/>
-        <Label x:Name="lblTelefono" Content="Teléfono:" Height="24" Margin="148,175,331,191" Grid.Row="1" FontStyle="Italic"/>
+        <Label x:Name="lblTelefono" Content="Teléfono:" Height="24" Margin="148,174,331,192" Grid.Row="1" FontStyle="Italic"/>
         <TextBox x:Name="txtRut" HorizontalAlignment="Left" Height="25" Margin="219,48,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
         <Button  x:Name="btnCargarDatosAsociados" HorizontalAlignment="Left" Margin="398,44,0,0" Grid.Row="1" VerticalAlignment="Top" Width="28" Height="27" Click="btnCargarDatosAsociados_Click" Padding="0" Background="DodgerBlue" BorderBrush="Transparent" materialDesign:ShadowAssist.ShadowDepth="Depth1">
             <Button.ToolTip>
@@ -75,18 +75,27 @@
         <TextBox x:Name="txtMailContacto" HorizontalAlignment="Left" Height="25" Margin="219,123,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
         <TextBox x:Name="txtDireccion" HorizontalAlignment="Left" Height="25" Margin="219,148,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
         <TextBox x:Name="txtTelefono" HorizontalAlignment="Left" Height="25" Margin="219,174,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="174"/>
-        <Button  x:Name="btnBuscarListadoCliente" HorizontalAlignment="Left" Margin="365,204,0,0" Grid.Row="1" VerticalAlignment="Top" Width="28" Height="27" Click="btnBuscarListadoCliente_Click" Padding="0" Background="DodgerBlue" BorderBrush="Transparent" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+        <ComboBox x:Name="comboEmpresa" HorizontalAlignment="Left" Margin="219,226,0,0" Grid.Row="1" VerticalAlignment="Top" Width="127" Height="30"/>
+        <ComboBox x:Name="comboActividad" HorizontalAlignment="Left" Margin="218,198,0,0" Grid.Row="1" VerticalAlignment="Top" Width="127" Height="28"/>
+        <Button  x:Name="btnRegistrarCliente" HorizontalAlignment="Left" Margin="218,278,0,0" Grid.Row="1" VerticalAlignment="Top" Width="28" Height="27" Click="btnRegistrarCliente_Click" Padding="0" Background="LightGreen" BorderBrush="Transparent" materialDesign:ShadowAssist.ShadowDepth="Depth1">
             <Button.ToolTip>
-                <TextBlock>Buscar en listado de clientes</TextBlock>
+                <TextBlock>Eliminar cliente</TextBlock>
             </Button.ToolTip>
-            <materialDesign:PackIcon Kind="Search"/>
+            <materialDesign:PackIcon Kind="Check"/>
         </Button>
-        <Button  x:Name="btnEliminarCliente" HorizontalAlignment="Left" Margin="332,204,0,0" Grid.Row="1" VerticalAlignment="Top" Width="28" Height="27" Click="btnEliminarCliente_Click" Padding="0" Background="IndianRed" BorderBrush="Transparent" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+        <Button  x:Name="btnEliminarCliente" HorizontalAlignment="Left" Margin="331,278,0,0" Grid.Row="1" VerticalAlignment="Top" Width="28" Height="27" Click="btnEliminarCliente_Click" Padding="0" Background="IndianRed" BorderBrush="Transparent" materialDesign:ShadowAssist.ShadowDepth="Depth1">
             <Button.ToolTip>
                 <TextBlock>Eliminar cliente</TextBlock>
             </Button.ToolTip>
             <materialDesign:PackIcon Kind="TrashCan"/>
         </Button>
+        <Button  x:Name="btnBuscarListadoCliente" HorizontalAlignment="Left" Margin="364,278,0,0" Grid.Row="1" VerticalAlignment="Top" Width="28" Height="27" Click="btnBuscarListadoCliente_Click" Padding="0" Background="DodgerBlue" BorderBrush="Transparent" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+            <Button.ToolTip>
+                <TextBlock>Buscar en listado de clientes</TextBlock>
+            </Button.ToolTip>
+            <materialDesign:PackIcon Kind="Search"/>
+        </Button>
+
         <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialog" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
             <materialDesign:DialogHost.DialogContent>
                 <StackPanel Margin="15">
@@ -119,5 +128,23 @@
                 </StackPanel>
             </materialDesign:DialogHost.DialogContent>
         </materialDesign:DialogHost>
+        <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialogAgregarCliente" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="15">
+                    <TextBlock Text="Cliente agregado exitosamente!"/>
+                    <Button VerticalAlignment="Center" Click="Button_Click_4" Content="Aceptar" HorizontalAlignment="Center" Margin="0,20,0,0" Width="86" Height="23"/>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+        <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialogNoAgregarRutExistente" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="15">
+                    <TextBlock Text="No se puede agregar el rut porque ya existe uno igual en la base de datos..."/>
+                    <Button VerticalAlignment="Center" Click="Button_Click_5" Content="Aceptar" HorizontalAlignment="Center" Margin="0,20,0,0" Width="86" Height="23"/>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+        <Label Content="Empresa:" Height="24" Margin="148,202,331,164" Grid.Row="1" FontStyle="Italic"/>
+        <Label Content="Actividad:" Height="24" Margin="143,232,336,134" Grid.Row="1" FontStyle="Italic"/>
     </Grid>
 </Window>

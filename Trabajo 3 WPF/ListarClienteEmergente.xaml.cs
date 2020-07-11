@@ -24,6 +24,23 @@ namespace Trabajo_3_WPF
         public ListarClienteEmergente()
         {
             InitializeComponent();
+            comboEmpresa.Items.Add("Seleccionar.");
+            comboEmpresa.Items.Add("SPA");
+            comboEmpresa.Items.Add("EIRL");
+            comboEmpresa.Items.Add("Limitada");
+            comboEmpresa.Items.Add("Sociedad Anónima");
+            comboEmpresa.SelectedIndex = 0;
+
+            comboActividad.Items.Add("Seleccionar.");
+            comboActividad.Items.Add("Agropecuaria");
+            comboActividad.Items.Add("Minería");
+            comboActividad.Items.Add("Manufactura");
+            comboActividad.Items.Add("Comercio");
+            comboActividad.Items.Add("Hotelería");
+            comboActividad.Items.Add("Alimentos");
+            comboActividad.Items.Add("Transporte");
+            comboActividad.Items.Add("Servicios");
+            comboActividad.SelectedIndex = 0;
         }
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -88,47 +105,150 @@ namespace Trabajo_3_WPF
             }
         }
 
+        private void btnVolver_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            if (btnAltoContraste.Background == Brushes.Gray)
+            {
+                main.btnAltoContraste_Click(null, null);
+            }
+            main.Show();
+            this.Close();
+        }
+
         private void tablaListarCliente_Initialized(object sender, EventArgs e)
         {
+            ModeloCliente._cliente.Clear(); 
+            tablaListarCliente.ItemsSource = null;
             tablaListarCliente.ItemsSource = ControladorCliente.TodosDatosClientes();
-            if (ModeloCliente._cliente.Count() > 1)
-            {
-                ModeloCliente._cliente.RemoveAt(1);
-            }
+        }
 
+        private void checkRut_Click(object sender, RoutedEventArgs e)
+        {
+            if (checkRut.IsChecked.Value)
+            {
+                lblRut.Visibility = Visibility.Visible;
+                txtRut.Visibility = Visibility.Visible;
+            }
+            if (!checkRut.IsChecked.Value)
+            {
+                lblRut.Visibility = Visibility.Collapsed;
+                txtRut.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void checkEmpresa_Click(object sender, RoutedEventArgs e)
+        {
+            if (checkEmpresa.IsChecked.Value)
+            {
+                lblEmpresa.Visibility = Visibility.Visible;
+                comboEmpresa.Visibility = Visibility.Visible;
+            }
+            if (!checkEmpresa.IsChecked.Value)
+            {
+                lblEmpresa.Visibility = Visibility.Collapsed;
+                comboEmpresa.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void checkActividad_Click(object sender, RoutedEventArgs e)
+        {
+            if (checkActividad.IsChecked.Value)
+            {
+                lblActividad.Visibility = Visibility.Visible;
+                comboActividad.Visibility = Visibility.Visible;
+            }
+            if (!checkActividad.IsChecked.Value)
+            {
+                lblActividad.Visibility = Visibility.Collapsed;
+                comboActividad.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void btnBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            do
+            {
+                if (!checkRut.IsChecked.Value && !checkEmpresa.IsChecked.Value && !checkActividad.IsChecked.Value)
+                {
+                    ModeloCliente._cliente.Clear();
+                    tablaListarCliente.ItemsSource = null;
+                    tablaListarCliente.ItemsSource = ControladorCliente.TodosDatosClientes();
+                    break;
+                }
+                if (checkRut.IsChecked.Value || checkEmpresa.IsChecked.Value || checkActividad.IsChecked.Value)
+                {
+                    ModeloCliente._cliente.Clear();
+                    tablaListarCliente.ItemsSource = null;
+                    if (checkRut.IsChecked.Value && checkEmpresa.IsChecked.Value)
+                    {
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarRutEmpresaListarCliente(txtRut.Text, comboEmpresa.SelectedItem.ToString());
+                        break;
+                    }
+                    if (checkRut.IsChecked.Value && checkActividad.IsChecked.Value)
+                    {
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarRutActividadListarCliente(txtRut.Text, comboActividad.SelectedIndex);
+                        break;
+                    }
+                    if (checkRut.IsChecked.Value && checkEmpresa.IsChecked.Value && checkActividad.IsChecked.Value)
+                    {
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarTodosListarCliente(txtRut.Text, comboEmpresa.SelectedItem.ToString(), comboActividad.SelectedIndex);
+                        break;
+                    }
+                    if (checkActividad.IsChecked.Value && checkEmpresa.IsChecked.Value)
+                    {
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarActividadEmpresaListarCliente(comboEmpresa.SelectedItem.ToString(), comboActividad.SelectedIndex);
+                        break;
+                    }
+                    if (checkRut.IsChecked.Value)
+                    {
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarRutListarCliente(txtRut.Text);
+                        break;
+                    }
+                    if (checkEmpresa.IsChecked.Value)
+                    {
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarEmpresaListarCliente(comboEmpresa.SelectedItem.ToString());
+                        break;
+                    }
+                    if (checkActividad.IsChecked.Value)
+                    {
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarActividadListarCliente(comboActividad.SelectedIndex);
+                        break;
+                    }
+                }
+
+                break;
+            } while (true);
         }
 
         private void tablaListarCliente_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             var grid = sender as DataGrid;
             var selected = grid.SelectedItems;
-
+            
+            // ... Add all Names to a List.
+            string rut = "";
             foreach (var item in selected)
             {
                 var cliente = item as ModeloCliente;
-                ModeloCliente.names.Add(cliente.RutCliente);
-                ModeloCliente.names.Add(cliente.RazonSocial);
-                ModeloCliente.names.Add(cliente.NombreContacto);
-                ModeloCliente.names.Add(cliente.MailContacto);
-                ModeloCliente.names.Add(cliente.Direccion);
-                ModeloCliente.names.Add(cliente.Telefono);
+                rut = cliente.RutCliente;
             }
-            
+
+            ControladorCliente.CargarDatosAsociados(rut);
+
             AgregarCliente aCliente = new AgregarCliente();
-            aCliente.txtRut.Text = ModeloCliente.names[0].ToString();
-            aCliente.txtRazonSocial.Text = ModeloCliente.names[1].ToString();
-            aCliente.txtNombreContacto.Text = ModeloCliente.names[2].ToString();
-            aCliente.txtMailContacto.Text = ModeloCliente.names[3].ToString();
-            aCliente.txtDireccion.Text = ModeloCliente.names[4].ToString();
-            aCliente.txtTelefono.Text = ModeloCliente.names[5].ToString();
+            aCliente.txtRut.Text = rut;
+            aCliente.txtRazonSocial.Text = ModeloCliente.baseCliente[0];
+            aCliente.txtNombreContacto.Text = ModeloCliente.baseCliente[1];
+            aCliente.txtMailContacto.Text = ModeloCliente.baseCliente[2];
+            aCliente.txtDireccion.Text = ModeloCliente.baseCliente[3];
+            aCliente.txtTelefono.Text = ModeloCliente.baseCliente[4];
+            aCliente.comboActividad.SelectedIndex = int.Parse(ModeloCliente.baseCliente[5]);
+            string empresa = ModeloCliente.baseCliente[6];
+            aCliente.comboEmpresa.SelectedIndex = int.Parse(empresa[0].ToString());
 
-            ModeloCliente.names.Clear();
-
-            if(btnAltoContraste.Background == Brushes.Gray)
-            {
-                aCliente.btnAltoContraste_Click(null, null);
-            }
-
+            ModeloCliente.baseCliente.Clear();
             aCliente.Show();
             this.Close();
         }

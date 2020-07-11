@@ -24,6 +24,23 @@ namespace Trabajo_3_WPF
         public AgregarCliente()
         {
             InitializeComponent();
+            comboEmpresa.Items.Add("Seleccionar.");
+            comboEmpresa.Items.Add("SPA");
+            comboEmpresa.Items.Add("EIRL");
+            comboEmpresa.Items.Add("Limitada");
+            comboEmpresa.Items.Add("Sociedad Anónima");
+            comboEmpresa.SelectedIndex = 0;
+
+            comboActividad.Items.Add("Seleccionar.");
+            comboActividad.Items.Add("Agropecuaria");
+            comboActividad.Items.Add("Minería");
+            comboActividad.Items.Add("Manufactura");
+            comboActividad.Items.Add("Comercio");
+            comboActividad.Items.Add("Hotelería");
+            comboActividad.Items.Add("Alimentos");
+            comboActividad.Items.Add("Transporte");
+            comboActividad.Items.Add("Servicios");
+            comboActividad.SelectedIndex = 0;
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -162,6 +179,9 @@ namespace Trabajo_3_WPF
                     txtMailContacto.Text = ModeloCliente.baseCliente[2];
                     txtDireccion.Text = ModeloCliente.baseCliente[3];
                     txtTelefono.Text = ModeloCliente.baseCliente[4];
+                    comboActividad.SelectedIndex = int.Parse(ModeloCliente.baseCliente[5]);
+                    string empresa = ModeloCliente.baseCliente[6];
+                    comboEmpresa.SelectedIndex = int.Parse(empresa[0].ToString());
                     ModeloCliente.baseCliente.Clear();
                 }
                 catch (Exception)
@@ -213,6 +233,8 @@ namespace Trabajo_3_WPF
             txtMailContacto.Text = "";
             txtDireccion.Text = "";
             txtTelefono.Text = "";
+            comboEmpresa.SelectedIndex = 0;
+            comboActividad.SelectedIndex = 0;
         }
 
         private void btnEliminarCliente_Click(object sender, RoutedEventArgs e)
@@ -252,12 +274,58 @@ namespace Trabajo_3_WPF
         {
             dialogClienteEliminado.IsEnabled = false;
             dialogClienteEliminado.IsOpen = false;
+            txtRut.Text = "";
+            txtRazonSocial.Text = "";
+            txtNombreContacto.Text = "";
+            txtMailContacto.Text = "";
+            txtDireccion.Text = "";
+            txtTelefono.Text = "";
+            comboEmpresa.SelectedIndex = 0;
+            comboActividad.SelectedIndex = 0;
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             dialogIsData.IsEnabled = false;
             dialogIsData.IsOpen = false;
+        }
+
+        private void btnRegistrarCliente_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ControladorCliente.AgregarCliente(txtRut.Text, txtRazonSocial.Text, txtNombreContacto.Text, txtMailContacto.Text, txtDireccion.Text, txtTelefono.Text, comboEmpresa.SelectedItem.ToString(), comboActividad.SelectedIndex);
+                dialogAgregarCliente.IsEnabled = true;
+                dialogAgregarCliente.IsOpen = true;
+            }
+            catch
+            {
+                dialogNoAgregarRutExistente.IsEnabled = true;
+                dialogNoAgregarRutExistente.IsOpen = true;
+
+            }
+
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            dialogAgregarCliente.IsEnabled = false;
+            dialogAgregarCliente.IsOpen = false;
+            txtRut.Text = "";
+            txtRazonSocial.Text = "";
+            txtNombreContacto.Text = "";
+            txtMailContacto.Text = "";
+            txtDireccion.Text = "";
+            txtTelefono.Text = "";
+            comboEmpresa.SelectedIndex = 0;
+            comboActividad.SelectedIndex = 0;
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            dialogNoAgregarRutExistente.IsEnabled = false;
+            dialogNoAgregarRutExistente.IsOpen = false;
+            txtRut.Text = "";
         }
     }
 }
