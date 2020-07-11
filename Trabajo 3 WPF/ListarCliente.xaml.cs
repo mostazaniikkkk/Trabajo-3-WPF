@@ -198,37 +198,37 @@ namespace Trabajo_3_WPF
                     tablaListarCliente.ItemsSource = null;
                     if(checkRut.IsChecked.Value && checkEmpresa.IsChecked.Value)
                     {
-                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarListarCliente(txtRut.Text, comboEmpresa.SelectedItem.ToString(), 0);
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarRutEmpresaListarCliente(txtRut.Text, comboEmpresa.SelectedItem.ToString());
                         break;
                     }
                     if (checkRut.IsChecked.Value && checkActividad.IsChecked.Value)
                     {
-                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarListarCliente(txtRut.Text, null, comboActividad.SelectedIndex);
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarRutActividadListarCliente(txtRut.Text, comboActividad.SelectedIndex);
                         break;
                     }
                     if (checkRut.IsChecked.Value && checkEmpresa.IsChecked.Value && checkActividad.IsChecked.Value)
                     {
-                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarListarCliente(txtRut.Text, comboEmpresa.SelectedItem.ToString(), comboActividad.SelectedIndex);
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarTodosListarCliente(txtRut.Text, comboEmpresa.SelectedItem.ToString(), comboActividad.SelectedIndex);
                         break;
                     }
                     if (checkActividad.IsChecked.Value && checkEmpresa.IsChecked.Value)
                     {
-                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarListarCliente(null, comboEmpresa.SelectedItem.ToString(), comboActividad.SelectedIndex);
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarActividadEmpresaListarCliente(comboEmpresa.SelectedItem.ToString(), comboActividad.SelectedIndex);
                         break;
                     }
                     if (checkRut.IsChecked.Value)
                     {
-                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarListarCliente(txtRut.Text, null, 0);
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarRutListarCliente(txtRut.Text);
                         break;
                     }
                     if (checkEmpresa.IsChecked.Value)
                     {
-                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarListarCliente(null, comboEmpresa.SelectedItem.ToString(), 0);
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarEmpresaListarCliente(comboEmpresa.SelectedItem.ToString());
                         break;
                     }
                     if (checkActividad.IsChecked.Value)
                     {
-                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarListarCliente(null, null, comboActividad.SelectedIndex);
+                        tablaListarCliente.ItemsSource = ControladorCliente.FiltrarActividadListarCliente(comboActividad.SelectedIndex);
                         break;
                     }
                 }

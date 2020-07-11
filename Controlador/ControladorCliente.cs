@@ -163,81 +163,18 @@ namespace Controlador
 
         /*Ordena dataGrid de listarCliente según el orden especificado por el cliente 
         en la ventana*/
-        public static List<ModeloCliente> FiltrarListarCliente(string rut, string empresa, int actividad)
+
+        #region filtradoDeListarCliente
+
+        public static List<ModeloCliente> FiltrarRutListarCliente(string rut)
         {
-            int id = 0;
-            if(empresa == "SPA")
-            {
-                id = 10;
-            }
-            if (empresa == "EIRL")
-            {
-                id = 20;
-            }
-            if (empresa == "Limitada")
-            {
-                id = 30;
-            }
-            if (empresa == "Sociedad Anónima")
-            {
-                id = 40;
-            }
-            Console.WriteLine(id+"id");
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(null, connection);
 
-                do
-                {
-                    if (rut != null && empresa == null && actividad == 0)
-                    {
-                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @rut";
-                        command.Parameters.AddWithValue("@rut", rut);
-                        break;
-                    }
-                    if (rut == null && empresa != null && actividad == 0)
-                    {
-                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @empresa";
-                        command.Parameters.AddWithValue("@empresa", empresa);
-                        break;
-                    }
-                    if (rut == null && empresa == null && actividad > 0)
-                    {
-                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @actividad";
-                        command.Parameters.AddWithValue("@actividad", actividad);
-                        break;
-                    }
-                    if (rut != null && empresa != null && actividad == 0)
-                    {
-                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @rut AND IdTipoEmpresa = @empresa";
-                        command.Parameters.AddWithValue("@rut", rut);
-                        command.Parameters.AddWithValue("@empresa", id);
-                        break;
-                    }
-                    if (rut == null && empresa != null && actividad > 0)
-                    {
-                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE IdTipoEmpresa = @empresa AND IdActividadEmpresa = @actividad";
-                        command.Parameters.AddWithValue("@empresa", empresa);
-                        command.Parameters.AddWithValue("@actividad", actividad);
-                        break;
-                    }
-                    if (rut != null && empresa == null && actividad > 0)
-                    {
-                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @rut AND IdActividadEmpresa = @actividad";
-                        command.Parameters.AddWithValue("@rut", rut);
-                        command.Parameters.AddWithValue("@actividad", actividad);
-                        break;
-                    }
-                    if (rut != null && empresa != null && actividad > 0)
-                    {
-                        command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @rut AND IdTipoEmpresa = @empresa AND IdActividadEmpresa = @actividad";
-                        command.Parameters.AddWithValue("@rut", rut);
-                        command.Parameters.AddWithValue("@empresa", id);
-                        command.Parameters.AddWithValue("@actividad", actividad);
-                        break;
-                    }
-                    break; 
-                } while (true);
+                command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @rut";
+                command.Parameters.AddWithValue("@rut", rut);
+                  
 
                 connection.Open();
                 SqlDataAdapter da = new SqlDataAdapter(command);
@@ -249,13 +186,14 @@ namespace Controlador
                 {
                     foreach (DataRow row in dt.Rows)
                     {
-                        ModeloCliente.Singleton.RutCliente = row["RutCliente"].ToString();
-                        ModeloCliente.Singleton.RazonSocial = row["RazonSocial"].ToString();
-                        ModeloCliente.Singleton.NombreContacto = row["NombreContacto"].ToString();
-                        ModeloCliente.Singleton.MailContacto = row["MailContacto"].ToString();
-                        ModeloCliente.Singleton.Direccion = row["Direccion"].ToString();
-                        ModeloCliente.Singleton.Telefono = row["Telefono"].ToString();
-                        ModeloCliente._cliente.Add(ModeloCliente.Singleton);
+                        ModeloCliente modelo = new ModeloCliente();
+                        modelo.RutCliente = row["RutCliente"].ToString();
+                        modelo.RazonSocial = row["RazonSocial"].ToString();
+                        modelo.NombreContacto = row["NombreContacto"].ToString();
+                        modelo.MailContacto = row["MailContacto"].ToString();
+                        modelo.Direccion = row["Direccion"].ToString();
+                        modelo.Telefono = row["Telefono"].ToString();
+                        ModeloCliente._cliente.Add(modelo);
                     }
                     return ModeloCliente._cliente;
                 }
@@ -265,6 +203,326 @@ namespace Controlador
                 }
             }
         }
+
+        public static List<ModeloCliente> FiltrarEmpresaListarCliente(string empresa)
+        {
+            int id = 0;
+            do
+            {
+                if (empresa == "SPA")
+                {
+                    id = 10;
+                }
+                if (empresa == "EIRL")
+                {
+                    id = 20;
+                }
+                if (empresa == "Limitada")
+                {
+                    id = 30;
+                }
+                if (empresa == "Sociedad Anónima")
+                {
+                    id = 40;
+                }
+                break;
+            } while (true);
+            
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+
+                command.CommandText = "SELECT * FROM dbo.Cliente WHERE IdTipoEmpresa = @empresa";
+                command.Parameters.AddWithValue("@empresa", id);
+
+
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                try
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        ModeloCliente modelo = new ModeloCliente();
+                        modelo.RutCliente = row["RutCliente"].ToString();
+                        modelo.RazonSocial = row["RazonSocial"].ToString();
+                        modelo.NombreContacto = row["NombreContacto"].ToString();
+                        modelo.MailContacto = row["MailContacto"].ToString();
+                        modelo.Direccion = row["Direccion"].ToString();
+                        modelo.Telefono = row["Telefono"].ToString();
+                        ModeloCliente._cliente.Add(modelo);
+                    }
+                    return ModeloCliente._cliente;
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
+
+        public static List<ModeloCliente> FiltrarActividadListarCliente(int actividad)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+
+                command.CommandText = "SELECT * FROM dbo.Cliente WHERE IdActividadEmpresa = @actividad";
+                command.Parameters.AddWithValue("@actividad", actividad);
+
+
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                try
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        ModeloCliente modelo = new ModeloCliente();
+                        modelo.RutCliente = row["RutCliente"].ToString();
+                        modelo.RazonSocial = row["RazonSocial"].ToString();
+                        modelo.NombreContacto = row["NombreContacto"].ToString();
+                        modelo.MailContacto = row["MailContacto"].ToString();
+                        modelo.Direccion = row["Direccion"].ToString();
+                        modelo.Telefono = row["Telefono"].ToString();
+                        ModeloCliente._cliente.Add(modelo);
+                    }
+                    return ModeloCliente._cliente;
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
+
+        public static List<ModeloCliente> FiltrarTodosListarCliente(string rut, string empresa, int actividad)
+        {
+            int id = 0;
+            do
+            {
+                if (empresa == "SPA")
+                {
+                    id = 10;
+                }
+                if (empresa == "EIRL")
+                {
+                    id = 20;
+                }
+                if (empresa == "Limitada")
+                {
+                    id = 30;
+                }
+                if (empresa == "Sociedad Anónima")
+                {
+                    id = 40;
+                }
+                break;
+            } while (true);
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+
+                command.CommandText = "SELECT * FROM dbo.Cliente WHERE IdActividadEmpresa = @actividad AND RutCliente = @rut AND IdTipoEmpresa = @empresa";
+                command.Parameters.AddWithValue("@actividad", actividad);
+                command.Parameters.AddWithValue("@rut", rut);
+                command.Parameters.AddWithValue("@empresa", id);
+
+
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                try
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        ModeloCliente modelo = new ModeloCliente();
+                        modelo.RutCliente = row["RutCliente"].ToString();
+                        modelo.RazonSocial = row["RazonSocial"].ToString();
+                        modelo.NombreContacto = row["NombreContacto"].ToString();
+                        modelo.MailContacto = row["MailContacto"].ToString();
+                        modelo.Direccion = row["Direccion"].ToString();
+                        modelo.Telefono = row["Telefono"].ToString();
+                        ModeloCliente._cliente.Add(modelo);
+                    }
+                    return ModeloCliente._cliente;
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
+
+        public static List<ModeloCliente> FiltrarRutEmpresaListarCliente(string rut, string empresa)
+        {
+            int id = 0;
+            do
+            {
+                if (empresa == "SPA")
+                {
+                    id = 10;
+                }
+                if (empresa == "EIRL")
+                {
+                    id = 20;
+                }
+                if (empresa == "Limitada")
+                {
+                    id = 30;
+                }
+                if (empresa == "Sociedad Anónima")
+                {
+                    id = 40;
+                }
+                break;
+            } while (true);
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+
+                command.CommandText = "SELECT * FROM dbo.Cliente WHERE RutCliente = @rut AND IdTipoEmpresa = @empresa";
+                command.Parameters.AddWithValue("@rut", rut);
+                command.Parameters.AddWithValue("@empresa", id);
+
+
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                try
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        ModeloCliente modelo = new ModeloCliente();
+                        modelo.RutCliente = row["RutCliente"].ToString();
+                        modelo.RazonSocial = row["RazonSocial"].ToString();
+                        modelo.NombreContacto = row["NombreContacto"].ToString();
+                        modelo.MailContacto = row["MailContacto"].ToString();
+                        modelo.Direccion = row["Direccion"].ToString();
+                        modelo.Telefono = row["Telefono"].ToString();
+                        ModeloCliente._cliente.Add(modelo);
+                    }
+                    return ModeloCliente._cliente;
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
+
+        public static List<ModeloCliente> FiltrarActividadEmpresaListarCliente(string empresa, int actividad)
+        {
+            int id = 0;
+            do
+            {
+                if (empresa == "SPA")
+                {
+                    id = 10;
+                }
+                if (empresa == "EIRL")
+                {
+                    id = 20;
+                }
+                if (empresa == "Limitada")
+                {
+                    id = 30;
+                }
+                if (empresa == "Sociedad Anónima")
+                {
+                    id = 40;
+                }
+                break;
+            } while (true);
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+
+                command.CommandText = "SELECT * FROM dbo.Cliente WHERE IdActividadEmpresa = @actividad AND IdTipoEmpresa = @empresa";
+                command.Parameters.AddWithValue("@actividad", actividad);
+                command.Parameters.AddWithValue("@empresa", id);
+
+
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                try
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        ModeloCliente modelo = new ModeloCliente();
+                        modelo.RutCliente = row["RutCliente"].ToString();
+                        modelo.RazonSocial = row["RazonSocial"].ToString();
+                        modelo.NombreContacto = row["NombreContacto"].ToString();
+                        modelo.MailContacto = row["MailContacto"].ToString();
+                        modelo.Direccion = row["Direccion"].ToString();
+                        modelo.Telefono = row["Telefono"].ToString();
+                        ModeloCliente._cliente.Add(modelo);
+                    }
+                    return ModeloCliente._cliente;
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
+
+        public static List<ModeloCliente> FiltrarRutActividadListarCliente(string rut, int actividad)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+
+                command.CommandText = "SELECT * FROM dbo.Cliente WHERE IdActividadEmpresa = @actividad AND RutCliente = @rut";
+                command.Parameters.AddWithValue("@actividad", actividad);
+                command.Parameters.AddWithValue("@rut", rut);
+
+
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                try
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        ModeloCliente modelo = new ModeloCliente();
+                        modelo.RutCliente = row["RutCliente"].ToString();
+                        modelo.RazonSocial = row["RazonSocial"].ToString();
+                        modelo.NombreContacto = row["NombreContacto"].ToString();
+                        modelo.MailContacto = row["MailContacto"].ToString();
+                        modelo.Direccion = row["Direccion"].ToString();
+                        modelo.Telefono = row["Telefono"].ToString();
+                        ModeloCliente._cliente.Add(modelo);
+                    }
+                    return ModeloCliente._cliente;
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
+
+        #endregion
 
         /*Devuelve las filas que tiene la tabla cliente*/
         public static int FilasTablaCliente()
