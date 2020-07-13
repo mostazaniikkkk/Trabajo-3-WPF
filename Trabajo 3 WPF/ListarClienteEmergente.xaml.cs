@@ -229,28 +229,51 @@ namespace Trabajo_3_WPF
             
             // ... Add all Names to a List.
             string rut = "";
+
             foreach (var item in selected)
             {
                 var cliente = item as ModeloCliente;
-                rut = cliente.RutCliente;
+                if (cliente != null)
+                {
+                    try
+                    {
+                        rut = cliente.RutCliente;
+                        ControladorCliente.CargarDatosAsociados(rut);
+                        AgregarCliente aCliente = new AgregarCliente();
+                        aCliente.txtRut.Text = rut;
+                        aCliente.txtRazonSocial.Text = ModeloCliente.baseCliente[0];
+                        aCliente.txtNombreContacto.Text = ModeloCliente.baseCliente[1];
+                        aCliente.txtMailContacto.Text = ModeloCliente.baseCliente[2];
+                        aCliente.txtDireccion.Text = ModeloCliente.baseCliente[3];
+                        aCliente.txtTelefono.Text = ModeloCliente.baseCliente[4];
+                        aCliente.comboActividad.SelectedIndex = int.Parse(ModeloCliente.baseCliente[5]);
+                        string empresa = ModeloCliente.baseCliente[6];
+                        aCliente.comboEmpresa.SelectedIndex = int.Parse(empresa[0].ToString());
+
+                        ModeloCliente.baseCliente.Clear();
+                        aCliente.Show();
+                        this.Close();
+                        break;
+                    }
+                    catch
+                    {
+                        dialogSeleccionErronea.IsEnabled = true;
+                        dialogSeleccionErronea.IsOpen = true;
+                    }
+
+                }
+                else
+                {
+                    break;
+                }
             }
+        }
 
-            ControladorCliente.CargarDatosAsociados(rut);
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            dialogSeleccionErronea.IsEnabled = false;
+            dialogSeleccionErronea.IsOpen = false;
 
-            AgregarCliente aCliente = new AgregarCliente();
-            aCliente.txtRut.Text = rut;
-            aCliente.txtRazonSocial.Text = ModeloCliente.baseCliente[0];
-            aCliente.txtNombreContacto.Text = ModeloCliente.baseCliente[1];
-            aCliente.txtMailContacto.Text = ModeloCliente.baseCliente[2];
-            aCliente.txtDireccion.Text = ModeloCliente.baseCliente[3];
-            aCliente.txtTelefono.Text = ModeloCliente.baseCliente[4];
-            aCliente.comboActividad.SelectedIndex = int.Parse(ModeloCliente.baseCliente[5]);
-            string empresa = ModeloCliente.baseCliente[6];
-            aCliente.comboEmpresa.SelectedIndex = int.Parse(empresa[0].ToString());
-
-            ModeloCliente.baseCliente.Clear();
-            aCliente.Show();
-            this.Close();
         }
     }
 }

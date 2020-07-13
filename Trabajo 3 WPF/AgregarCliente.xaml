@@ -79,7 +79,7 @@
         <ComboBox x:Name="comboActividad" HorizontalAlignment="Left" Margin="218,198,0,0" Grid.Row="1" VerticalAlignment="Top" Width="127" Height="28"/>
         <Button  x:Name="btnRegistrarCliente" HorizontalAlignment="Left" Margin="218,278,0,0" Grid.Row="1" VerticalAlignment="Top" Width="28" Height="27" Click="btnRegistrarCliente_Click" Padding="0" Background="LightGreen" BorderBrush="Transparent" materialDesign:ShadowAssist.ShadowDepth="Depth1">
             <Button.ToolTip>
-                <TextBlock>Eliminar cliente</TextBlock>
+                <TextBlock>Agregar cliente</TextBlock>
             </Button.ToolTip>
             <materialDesign:PackIcon Kind="Check"/>
         </Button>

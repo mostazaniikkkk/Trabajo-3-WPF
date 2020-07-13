@@ -62,5 +62,13 @@
             </Button.ToolTip>
             <materialDesign:PackIcon Kind="Search"/>
         </Button>
+        <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialogSeleccionErronea" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="15">
+                    <TextBlock Text="Error de selección erronea, seleccione otra fila..."/>
+                    <Button VerticalAlignment="Center" Click="Button_Click" Content="Aceptar" HorizontalAlignment="Center" Margin="0,20,0,0" Width="86" Height="23"/>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 </Window>
