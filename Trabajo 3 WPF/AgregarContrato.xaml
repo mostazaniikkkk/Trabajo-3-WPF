@@ -11,7 +11,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trabajo_3_WPF"
         mc:Ignorable="d"
-        Title="Window1" Height="420" Width="550" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" >
+        Title="Window1" Height="463" Width="570" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" >
 
     <Grid x:Name="Window3">
         <Grid.Background>
@@ -50,5 +50,69 @@
                 <ImageBrush ImageSource="Assets/Imagenes/onBreakHD.png" Stretch="UniformToFill"/>
             </Label.Background>
         </Label>
+        <Label Content="Rut cliente:" HorizontalAlignment="Left" Margin="152,110,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <Label Content="Modalidad:" HorizontalAlignment="Left" Margin="352,138,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <Label Content="Tipo evento:" HorizontalAlignment="Left" Margin="145,135,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <Label Content="Fecha hora inicio:" HorizontalAlignment="Left" Margin="111,166,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <Label Content="Fecha hora término:" HorizontalAlignment="Left" Margin="96,190,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <Label Content="Asistentes:" HorizontalAlignment="Left" Margin="156,214,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <Label Content="Personal adicional:" HorizontalAlignment="Left" Margin="102,238,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <Label Content="Realizado:" HorizontalAlignment="Left" Margin="156,262,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <Label Content="Valor total contrato:" HorizontalAlignment="Left" Margin="93,286,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <Label Content="Observaciones:" HorizontalAlignment="Left" Margin="126,310,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <Label Content="Fecha término:" HorizontalAlignment="Left" Margin="129,86,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <Label Content="Fecha creación:" HorizontalAlignment="Left" Margin="126,62,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <Label Content="Número:" HorizontalAlignment="Left" Margin="167,38,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" FontStyle="Italic"/>
+        <TextBox x:Name="txtNumeroContrato" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="231,39,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="181"/>
+        <DatePicker IsEnabled="False" x:Name="txtFechaCreacion" HorizontalAlignment="Left" Margin="231,60,0,0" Grid.Row="1" VerticalAlignment="Top" Width="183"/>
+        <DatePicker x:Name="txtFechaTermino" HorizontalAlignment="Left" Margin="231,85,0,0" Grid.Row="1" VerticalAlignment="Top" Width="183"/>
+        <TextBox x:Name="txtRutCliente" HorizontalAlignment="Left" Height="23" Margin="231,111,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="181"/>
+        <ComboBox x:Name="comboEvento" HorizontalAlignment="Left" Margin="231,135,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100" Height="27" SelectionChanged="comboEvento_SelectionChanged" />
+        <DatePicker x:Name="txtFechaHoraInicio" HorizontalAlignment="Left" Margin="231,164,0,0" Grid.Row="1" VerticalAlignment="Top" Width="183"/>
+        <DatePicker IsEnabled="False" x:Name="txtFechaHoraTermino" HorizontalAlignment="Left" Margin="231,190,0,0" Grid.Row="1" VerticalAlignment="Top" Width="183" Height="24"/>
+        <TextBox x:Name="txtAsistentes" HorizontalAlignment="Left" Height="23" Margin="231,215,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="181"/>
+        <TextBox x:Name="txtPersonalAdicional" HorizontalAlignment="Left" Height="23" Margin="231,239,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="181"/>
+        <TextBox x:Name="txtRealizado" HorizontalAlignment="Left" Height="23" Margin="231,263,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="181"/>
+        <TextBox x:Name="txtValorTotalContrato" HorizontalAlignment="Left" Height="23" Margin="231,286,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="181"/>
+        <TextBox x:Name="txtObservaciones" HorizontalAlignment="Left" Height="23" Margin="231,311,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="181"/>
+        <Button  x:Name="btnRegistrarContrato" HorizontalAlignment="Left" Margin="229,355,0,0" Grid.Row="1" VerticalAlignment="Top" Width="28" Height="27" Click="btnRegistrarContrato_Click" Padding="0" Background="LightGreen" BorderBrush="Transparent" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+            <Button.ToolTip>
+                <TextBlock><Run Text="Agregar contrato"/></TextBlock>
+            </Button.ToolTip>
+            <materialDesign:PackIcon Kind="Check"/>
+        </Button>
+        <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialogFechaHoraInvalida" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="15">
+                    <TextBlock Text="Fecha hora inicio inválida, ingrese nuevamente..."/>
+                    <Button VerticalAlignment="Center" Click="Button_Click" Content="Aceptar" HorizontalAlignment="Center" Margin="0,20,0,0" Width="86" Height="23"/>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+        <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialogNoDataError" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="15">
+                    <TextBlock Text="Por favor, ingresar todos los datos solicitados..."/>
+                    <Button VerticalAlignment="Center" Click="Button_Click_1" Content="Aceptar" HorizontalAlignment="Center" Margin="0,20,0,0" Width="86" Height="23"/>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+        <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialogFechaTerminoInvalida" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="15">
+                    <TextBlock Text="Fecha término inválida, ingrese nuevamente..."/>
+                    <Button VerticalAlignment="Center" Click="Button_Click_2" Content="Aceptar" HorizontalAlignment="Center" Margin="0,20,0,0" Width="86" Height="23"/>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+        <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialogAsistenteNotNumero" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="15">
+                    <TextBlock Text="Por favor, ingrese un número válido en el campo asistentes..."/>
+                    <Button VerticalAlignment="Center" Click="Button_Click_3" Content="Aceptar" HorizontalAlignment="Center" Margin="0,20,0,0" Width="86" Height="23"/>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+        <ComboBox x:Name="comboModalidad" HorizontalAlignment="Left" Margin="431,135,0,0" Grid.Row="1" VerticalAlignment="Top" Width="129" Height="27"/>
     </Grid>
 </Window>

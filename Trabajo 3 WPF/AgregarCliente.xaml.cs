@@ -292,19 +292,27 @@ namespace Trabajo_3_WPF
 
         private void btnRegistrarCliente_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (txtRut.Text != "" && txtRazonSocial.Text != "" && txtNombreContacto.Text != "" && txtMailContacto.Text != "" &&
+                txtDireccion.Text != ""&&txtTelefono.Text!=""&&comboEmpresa.SelectedIndex>0 && comboActividad.SelectedIndex > 0)
             {
-                ControladorCliente.AgregarCliente(txtRut.Text, txtRazonSocial.Text, txtNombreContacto.Text, txtMailContacto.Text, txtDireccion.Text, txtTelefono.Text, comboEmpresa.SelectedItem.ToString(), comboActividad.SelectedIndex);
-                dialogAgregarCliente.IsEnabled = true;
-                dialogAgregarCliente.IsOpen = true;
+                try
+                {
+                    ControladorCliente.AgregarCliente(txtRut.Text, txtRazonSocial.Text, txtNombreContacto.Text, txtMailContacto.Text, txtDireccion.Text, txtTelefono.Text, comboEmpresa.SelectedItem.ToString(), comboActividad.SelectedIndex);
+                    dialogAgregarCliente.IsEnabled = true;
+                    dialogAgregarCliente.IsOpen = true;
+                }
+                catch
+                {
+                    dialogNoAgregarRutExistente.IsEnabled = true;
+                    dialogNoAgregarRutExistente.IsOpen = true;
+
+                }
             }
-            catch
+            else
             {
-                dialogNoAgregarRutExistente.IsEnabled = true;
-                dialogNoAgregarRutExistente.IsOpen = true;
-
+                dialogNoDataAgregada.IsEnabled = true;
+                dialogNoDataAgregada.IsOpen = true;
             }
-
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
@@ -326,6 +334,12 @@ namespace Trabajo_3_WPF
             dialogNoAgregarRutExistente.IsEnabled = false;
             dialogNoAgregarRutExistente.IsOpen = false;
             txtRut.Text = "";
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            dialogNoDataAgregada.IsEnabled = false;
+            dialogNoDataAgregada.IsOpen = false;
         }
     }
 }

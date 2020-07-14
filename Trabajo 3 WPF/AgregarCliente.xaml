@@ -144,6 +144,14 @@
                 </StackPanel>
             </materialDesign:DialogHost.DialogContent>
         </materialDesign:DialogHost>
+        <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialogNoDataAgregada" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="15">
+                    <TextBlock Text="Por favor, ingrese datos solicitados."/>
+                    <Button VerticalAlignment="Center" Click="Button_Click_6" Content="Aceptar" HorizontalAlignment="Center" Margin="0,20,0,0" Width="86" Height="23"/>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
         <Label Content="Empresa:" Height="24" Margin="148,202,331,164" Grid.Row="1" FontStyle="Italic"/>
         <Label Content="Actividad:" Height="24" Margin="143,232,336,134" Grid.Row="1" FontStyle="Italic"/>
     </Grid>

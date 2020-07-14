@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Controlador;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -116,6 +117,9 @@ namespace Trabajo_3_WPF
             {
                 aContrato.btnAltoContraste_Click(null, null);
             }
+            string nroContrato = ControladorContrato.GenerarNumeroContrato(23);
+            //string nroContrato1 = nroContrato.Remove()
+            aContrato.txtFechaCreacion.Text = ControladorContrato.GenerarNumeroContrato(23);
             aContrato.Show();
             this.Close();
         }
