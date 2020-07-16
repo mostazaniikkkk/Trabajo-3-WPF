@@ -243,7 +243,7 @@ namespace Trabajo_3_WPF
             {
                 if (ControladorCliente.isMoreDataCliente(txtRut.Text))
                 {
-                    if (!ControladorContrato.RetornarExisteRutContrato(txtRut.Text))
+                    if (!ControladorCliente.RetornarSiExisteRutContrato(txtRut.Text))
                     {
                         ControladorCliente.EliminarClienteAsociado(txtRut.Text);
                         dialogClienteEliminado.IsEnabled = true;

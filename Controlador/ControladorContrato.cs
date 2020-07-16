@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modelo;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,31 +12,6 @@ namespace Controlador
     public class ControladorContrato
     {
         static string connectionString = @"Server=DESKTOP-3FLS338; Database=OnBreak; Trusted_Connection=True;";
-
-        public static bool RetornarExisteRutContrato(string rut)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(null, connection);
-                command.CommandText = "SELECT RutCliente FROM dbo.Contrato WHERE RutCliente = @rut";
-                command.Parameters.AddWithValue("@rut", rut);
-
-                connection.Open();
-                SqlDataAdapter da = new SqlDataAdapter(command);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                try
-                {
-                    Console.WriteLine(dt.Rows[0].ToString());
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-        }
 
         public static string GenerarNumeroContrato(int type)
         {
@@ -53,6 +29,48 @@ namespace Controlador
                 try
                 {
                     return dt.Rows[0][0].ToString();
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
+
+        public static List<ModeloContrato> TodosDatosContrato()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(null, connection);
+                command.CommandText = "SELECT * FROM dbo.Contrato";
+
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+                //cuenta los items dentro de la lista para decir en qué posición guardará el dato.
+                try
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        ModeloContrato modelo = new ModeloContrato();
+                        modelo.NroContrato = row["Numero"].ToString();
+                        modelo.FechaCreacion = row["Creacion"].ToString();
+                        modelo.FechaTermino = row["Termino"].ToString();
+                        modelo.RutCliente = row["RutCliente"].ToString();
+                        modelo.IdModalidad = row["IdModalidad"].ToString();
+                        modelo.IdTipoEvento = int.Parse(row["IdTipoEvento"].ToString());
+                        modelo.FechaHorainicio = row["FechaHoraInicio"].ToString();
+                        modelo.FechaHoraTermino = row["FechaHoraTermino"].ToString();
+                        modelo.Asistentes = int.Parse(row["Asistentes"].ToString());
+                        modelo.PersonalAdicional = int.Parse(row["PersonalAdicional"].ToString());
+                        modelo.Realizado = bool.Parse(row["Realizado"].ToString());
+                        modelo.ValorTotalContrato = int.Parse(row["ValorTotalContrato"].ToString());
+                        modelo.Observaciones = row["Observaciones"].ToString();
+                        ModeloContrato._contrato.Add(modelo);
+                    }
+                    return ModeloContrato._contrato;
                 }
                 catch
                 {
@@ -239,7 +257,6 @@ namespace Controlador
                             valorTotal = valorTotalEvento;
                             break;
                         }
-
                     }
                     catch
                     {
@@ -497,6 +514,89 @@ namespace Controlador
                 }
             } while (true);
             return valorTotal;
+        }
+
+        public static void AgregarContratoBaseDatos(string numeroContrato, string creacion, string termino, string rutCliente, string idModalidad, int idTipoEvento, string fechaHoraInicio,
+            string fechaHoraTermino, int asistentes, int personalAdicional, bool realizado, int valorTotalContrato, string observaciones)
+        {
+            string iDateCreacion = creacion;
+            DateTime oDate1 = Convert.ToDateTime(iDateCreacion);
+
+            string iDateTermino = termino;
+            DateTime oDate2 = Convert.ToDateTime(iDateTermino);
+
+            Console.WriteLine("fechaHoraInicio:" + fechaHoraInicio);
+            string iDateHoraInicio = fechaHoraInicio;
+            DateTime oDate3 = Convert.ToDateTime(iDateHoraInicio);
+
+            Console.WriteLine("fechaHoraTermino:"+fechaHoraTermino);
+            string iDateHoraTermino = fechaHoraTermino;
+            DateTime oDate4 = Convert.ToDateTime(iDateHoraTermino);
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand("INSERT INTO dbo.Contrato(Numero, Creacion, Termino, RutCliente, IdModalidad, IdTipoEvento," +
+                    "FechaHoraInicio, FechaHoraTermino, Asistentes, PersonalAdicional, Realizado, ValorTotalContrato, Observaciones) VALUES(@numeroContrato, @creacion, @termino, @rutCliente, @idModalidad, @idTipoEvento, @fechaHoraInicio," +
+                    "@fechaHoraTermino, @asistentes, @personalAdicional, @realizado, @valorTotalContrato, @observaciones)", connection);
+
+                command.Parameters.AddWithValue("@numeroContrato", numeroContrato);
+                command.Parameters.AddWithValue("@creacion", oDate1);
+                command.Parameters.AddWithValue("@termino", oDate2);
+                command.Parameters.AddWithValue("@rutCliente", rutCliente);
+                command.Parameters.AddWithValue("@idModalidad", idModalidad);
+                command.Parameters.AddWithValue("@idTipoEvento", idTipoEvento);
+                command.Parameters.AddWithValue("@fechaHorainicio", oDate3);
+                command.Parameters.AddWithValue("@fechaHoraTermino", oDate4);
+                command.Parameters.AddWithValue("@asistentes", asistentes);
+                command.Parameters.AddWithValue("@personalAdicional", personalAdicional);
+                command.Parameters.AddWithValue("@realizado", realizado);
+                command.Parameters.AddWithValue("@valorTotalContrato", valorTotalContrato);
+                command.Parameters.AddWithValue("@observaciones", observaciones);
+                
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw;
+                }
+                connection.Close();
+            }
+        }
+
+        public static bool RetornarSiRutExisteContrato(string rut)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand("SELECT RutCliente FROM dbo.Cliente WHERE RutCliente = @rut", connection);
+
+                command.Parameters.AddWithValue("@rut", rut);
+
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                try
+                {
+                    Console.WriteLine(dt.Rows[0][0].ToString());
+                    if (dt.Rows[0][0] != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+            }
         }
     }
 }

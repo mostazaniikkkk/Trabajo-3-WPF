@@ -137,7 +137,7 @@ namespace Trabajo_3_WPF
                 string convertirData2 = convertirData1.Remove(6, 1);
                 string convertirData3 = convertirData2.Remove(8, 1);
                 string convertirData4 = convertirData3.Remove(10, 1);
-                string convertirData5 = convertirData4.Remove(12, 1);
+                string convertirData5 = convertirData4.Remove(12);
                 Console.WriteLine(convertirData5);
                 //string convertirFechaInt16 = convertirFechaInt13.Remove(12, 1);
 
@@ -185,40 +185,25 @@ namespace Trabajo_3_WPF
                     Console.WriteLine(true);
                     txtFechaTermino.Text = txtFechaTerminoData;
                 }
-                /*
-                if (fechaIntNroContrato > fechaHoraInicioInt)
-                {
-                    Console.WriteLine(false);
-                    dialogFechaHoraInvalida.IsEnabled = true;
-                    dialogFechaHoraInvalida.IsOpen = true;
 
-                }
-                else
-                {
-                   
-                }*/
                 #region CoffeeBreak
                 if (comboModalidad.SelectedItem.ToString() == "Light Break")
                 {
-                    /*
-                    string horax2 = ControladorContrato.GenerarNumeroContrato(8);
-                    string horax2x = horax2.Remove(2, 1);
-                    string horax2x1 = horax2x.Remove(4, 1);
-                    int horaInt = int.Parse(horax2x1);
-                    int horaIntModificada = horaInt + 20000;
-                    string horaModificada = horaIntModificada.ToString();
-                    string horaFormato1 = horaModificada.Insert(2, ":");
-                    string horaFormato2 = horaFormato1.Insert(5, ":");*/
                     string comboFechaHoraInicioCut = comboFechaHoraInicio.SelectedItem.ToString().Remove(2);
                     int agregarHoras = int.Parse(comboFechaHoraInicioCut) + 2;
+                    
                     if (agregarHoras > 24)
                     {
                         int resto = agregarHoras - 24;
-                        txtFechaHoraTermino.Text = resto + ":00 Hrs.";
+                        txtFechaHoraTermino.Text ="0" + resto + ":00";
                     }
                     else
                     {
-                        txtFechaHoraTermino.Text = agregarHoras + ":00 Hrs.";
+                        txtFechaHoraTermino.Text = agregarHoras + ":00";
+                    }
+                    if (agregarHoras < 10)
+                    {
+                        txtFechaHoraTermino.Text = "0" + agregarHoras + ":00";
                     }
                 }
                 if (comboModalidad.SelectedItem.ToString() == "Journal Break")
@@ -226,14 +211,19 @@ namespace Trabajo_3_WPF
 
                     string comboFechaHoraInicioCut = comboFechaHoraInicio.SelectedItem.ToString().Remove(2);
                     int agregarHoras = int.Parse(comboFechaHoraInicioCut) + 4;
+
                     if (agregarHoras > 24)
                     {
                         int resto = agregarHoras - 24;
-                        txtFechaHoraTermino.Text = resto + ":00 Hrs.";
+                        txtFechaHoraTermino.Text = "0" + resto + ":00";
                     }
                     else
                     {
-                        txtFechaHoraTermino.Text = agregarHoras + ":00 Hrs.";
+                        txtFechaHoraTermino.Text = agregarHoras + ":00";
+                    }
+                    if (agregarHoras < 10)
+                    {
+                        txtFechaHoraTermino.Text = "0" + agregarHoras + ":00";
                     }
                 }
                 if (comboModalidad.SelectedItem.ToString() == "Day Break")
@@ -241,14 +231,19 @@ namespace Trabajo_3_WPF
 
                     string comboFechaHoraInicioCut = comboFechaHoraInicio.SelectedItem.ToString().Remove(2);
                     int agregarHoras = int.Parse(comboFechaHoraInicioCut) + 8;
+                    
                     if (agregarHoras > 24)
                     {
                         int resto = agregarHoras - 24;
-                        txtFechaHoraTermino.Text = resto + ":00 Hrs.";
+                        txtFechaHoraTermino.Text = "0" + resto + ":00";
                     }
                     else
                     {
-                        txtFechaHoraTermino.Text = agregarHoras + ":00 Hrs.";
+                        txtFechaHoraTermino.Text = agregarHoras + ":00";
+                    }
+                    if (agregarHoras < 10)
+                    {
+                        txtFechaHoraTermino.Text = "0" + agregarHoras + ":00";
                     }
                 }
                 #endregion
@@ -258,20 +253,32 @@ namespace Trabajo_3_WPF
 
                     string comboFechaHoraInicioCut = comboFechaHoraInicio.SelectedItem.ToString().Remove(2);
                     int agregarHoras = int.Parse(comboFechaHoraInicioCut);
-                    txtFechaHoraTermino.Text = agregarHoras + ":30 Hrs.";
+                    if (agregarHoras < 10)
+                    {
+                        txtFechaHoraTermino.Text ="0" + agregarHoras + ":30";
+                    }
+                    else
+                    {
+                        txtFechaHoraTermino.Text = agregarHoras + ":30";
+                    }
                 }
                 if (comboModalidad.SelectedItem.ToString() == "Ambient Cocktail")
                 {
                     string comboFechaHoraInicioCut = comboFechaHoraInicio.SelectedItem.ToString().Remove(2);
                     int agregarHoras = int.Parse(comboFechaHoraInicioCut) + 1;
+                    
                     if (agregarHoras > 24)
                     {
                         int resto = agregarHoras - 24;
-                        txtFechaHoraTermino.Text = resto + ":00 Hrs.";
+                        txtFechaHoraTermino.Text = "0" + resto + ":00";
                     }
                     else
                     {
-                        txtFechaHoraTermino.Text = agregarHoras + ":00 Hrs.";
+                        txtFechaHoraTermino.Text = agregarHoras + ":00";
+                    }
+                    if (agregarHoras < 10)
+                    {
+                        txtFechaHoraTermino.Text = "0" + agregarHoras + ":00";
                     }
                 }
 
@@ -314,12 +321,10 @@ namespace Trabajo_3_WPF
                 }
                 if (comboModalidad.SelectedItem.ToString() == "Ejecutiva" || comboModalidad.SelectedItem.ToString() == "Celebración")
                 {
-                    Console.WriteLine("caquita");
                     try
                     {
                         if (comboEvento.SelectedIndex == 3)
                         {
-                            Console.WriteLine("caquita");
                             string valorContrato = ControladorContrato.CalcularValorContratoCena(comboModalidad.SelectedItem.ToString(), int.Parse(txtAsistentes.Text), int.Parse(txtPersonalAdicional.Text)).ToString();
                             txtValorTotalContrato.Text = valorContrato;
                             txtNumeroContrato.Text = convertirData5;
@@ -331,6 +336,74 @@ namespace Trabajo_3_WPF
                         dialogAsistenteNotNumero.IsOpen = true;
                     }
                     
+                }
+                try
+                {
+                    if (ControladorContrato.RetornarSiRutExisteContrato(txtRutCliente.Text))
+                    {
+                        if (comboModalidad.SelectedItem.ToString() == "Light Break")
+                        {
+                            string textTermino = txtFechaHoraTermino.Text;
+                            ControladorContrato.AgregarContratoBaseDatos(txtNumeroContrato.Text, txtFechaCreacion.Text, txtFechaTermino.Text, txtRutCliente.Text, "CB001",
+                                 comboEvento.SelectedIndex * 10, txtFechaTermino.Text + " " +comboFechaHoraInicio.SelectedItem.ToString(), txtFechaTermino.Text + " " + textTermino, int.Parse(txtAsistentes.Text), int.Parse(txtPersonalAdicional.Text)
+                                 , true, int.Parse(txtValorTotalContrato.Text), txtObservaciones.Text);
+                        }
+                        if (comboModalidad.SelectedItem.ToString() == "Journal Break")
+                        {
+                            string textTermino = txtFechaHoraTermino.Text;
+                            ControladorContrato.AgregarContratoBaseDatos(txtNumeroContrato.Text, txtFechaCreacion.Text, txtFechaTermino.Text, txtRutCliente.Text, "CB002",
+                                 comboEvento.SelectedIndex * 10, txtFechaTermino.Text + " " + comboFechaHoraInicio.SelectedItem.ToString(), txtFechaTermino.Text + " " + textTermino, int.Parse(txtAsistentes.Text), int.Parse(txtPersonalAdicional.Text)
+                                 , true, int.Parse(txtValorTotalContrato.Text), txtObservaciones.Text);
+                        }
+                        if (comboModalidad.SelectedItem.ToString() == "Day Break")
+                        {
+                            string textTermino = txtFechaHoraTermino.Text;
+                            ControladorContrato.AgregarContratoBaseDatos(txtNumeroContrato.Text, txtFechaCreacion.Text, txtFechaTermino.Text, txtRutCliente.Text, "CB003",
+                                 comboEvento.SelectedIndex * 10, txtFechaTermino.Text + " " + comboFechaHoraInicio.SelectedItem.ToString(), txtFechaTermino.Text + " " +textTermino, int.Parse(txtAsistentes.Text), int.Parse(txtPersonalAdicional.Text)
+                                 , true, int.Parse(txtValorTotalContrato.Text), txtObservaciones.Text);
+                        }
+                        if (comboModalidad.SelectedItem.ToString() == "Quick Cocktail")
+                        {
+                            string textTermino = txtFechaHoraTermino.Text;
+                            ControladorContrato.AgregarContratoBaseDatos(txtNumeroContrato.Text, txtFechaCreacion.Text, txtFechaTermino.Text, txtRutCliente.Text, "CO001",
+                                 comboEvento.SelectedIndex * 10, txtFechaTermino.Text + " " + comboFechaHoraInicio.SelectedItem.ToString(), txtFechaTermino.Text + " " + textTermino, int.Parse(txtAsistentes.Text), int.Parse(txtPersonalAdicional.Text)
+                                 , true, int.Parse(txtValorTotalContrato.Text), txtObservaciones.Text);
+                        }
+                        if (comboModalidad.SelectedItem.ToString() == "Ambient Cocktail")
+                        {
+                            string textTermino = txtFechaHoraTermino.Text;
+                            ControladorContrato.AgregarContratoBaseDatos(txtNumeroContrato.Text, txtFechaCreacion.Text, txtFechaTermino.Text, txtRutCliente.Text, "CO002",
+                                 comboEvento.SelectedIndex * 10, txtFechaTermino.Text + " " + comboFechaHoraInicio.SelectedItem.ToString(), txtFechaTermino.Text + " " + textTermino, int.Parse(txtAsistentes.Text), int.Parse(txtPersonalAdicional.Text)
+                                 , true, int.Parse(txtValorTotalContrato.Text), txtObservaciones.Text);
+                        }
+                        if (comboModalidad.SelectedItem.ToString() == "Ejecutiva")
+                        {
+                            string textTermino = txtFechaHoraTermino.Text;
+                            ControladorContrato.AgregarContratoBaseDatos(txtNumeroContrato.Text, txtFechaCreacion.Text, txtFechaTermino.Text, txtRutCliente.Text, "CE001",
+                                 comboEvento.SelectedIndex * 10, txtFechaTermino.Text + " " + comboFechaHoraInicio.SelectedItem.ToString(), txtFechaTermino.Text + " " + textTermino, int.Parse(txtAsistentes.Text), int.Parse(txtPersonalAdicional.Text)
+                                 , true, int.Parse(txtValorTotalContrato.Text), txtObservaciones.Text);
+                        }
+                        if (comboModalidad.SelectedItem.ToString() == "Celebración")
+                        {
+                            string textTermino = txtFechaHoraTermino.Text;
+                            ControladorContrato.AgregarContratoBaseDatos(txtNumeroContrato.Text, txtFechaCreacion.Text, txtFechaTermino.Text, txtRutCliente.Text, "CE002",
+                                 comboEvento.SelectedIndex * 10, txtFechaTermino.Text + " " + comboFechaHoraInicio.SelectedItem.ToString(), txtFechaTermino.Text + " " + textTermino, int.Parse(txtAsistentes.Text), int.Parse(txtPersonalAdicional.Text)
+                                 , true, int.Parse(txtValorTotalContrato.Text), txtObservaciones.Text);
+                        }
+                        dialogAgregarContrato.IsEnabled = true;
+                        dialogAgregarContrato.IsOpen = true;
+                    }
+                    else
+                    {
+                        dialogRutNoEncontrado.IsEnabled = true;
+                        dialogRutNoEncontrado.IsOpen = true;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                    dialogAgregarContratoError.IsEnabled = true;
+                    dialogAgregarContratoError.IsOpen = true;
                 }
 
             }
@@ -350,6 +423,8 @@ namespace Trabajo_3_WPF
 
         private void comboEvento_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            lblCosas.Content = "";
+            gridVariables.Margin = new Thickness(54,140,0,0);
             checkVegetariana.Visibility = Visibility.Collapsed;
             checkAmbientacionBasica.Visibility = Visibility.Collapsed;
             checkAmbientacionPersonalizada.Visibility = Visibility.Collapsed;
@@ -373,6 +448,7 @@ namespace Trabajo_3_WPF
                 comboModalidad.Items.Add("Day Break");
                 lblCosas.Content = "Alimentación:";
                 checkVegetariana.Visibility = Visibility.Visible;
+                gridVariables.Margin = new Thickness(54, 190, 0, 0);
             }
             if (comboEvento.SelectedIndex == 2)
             {
@@ -382,6 +458,7 @@ namespace Trabajo_3_WPF
                 checkAmbientacionBasica.Visibility = Visibility.Visible;
                 checkAmbientacionPersonalizada.Visibility = Visibility.Visible;
                 checkMusica.Visibility = Visibility.Visible;
+                gridVariables.Margin = new Thickness(54, 190, 0, 0);
             }
             if (comboEvento.SelectedIndex == 3)
             {
@@ -395,6 +472,7 @@ namespace Trabajo_3_WPF
                 lblCosas.Content = "Ambientación:";
                 checkAmbientacionBasica.Visibility = Visibility.Visible;
                 checkAmbientacionPersonalizada.Visibility = Visibility.Visible;
+                gridVariables.Margin = new Thickness(54, 190, 0, 0);
             }
         }
 
@@ -432,6 +510,24 @@ namespace Trabajo_3_WPF
                     comboFechaHoraInicio.Items.Add("0" + i + ":00");
                 }
             }
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            dialogAgregarContrato.IsEnabled = false;
+            dialogAgregarContrato.IsOpen = false;
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            dialogAgregarContratoError.IsEnabled = false;
+            dialogAgregarContratoError.IsOpen = false;
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            dialogRutNoEncontrado.IsEnabled = false;
+            dialogRutNoEncontrado.IsOpen = false;
         }
     }
 }

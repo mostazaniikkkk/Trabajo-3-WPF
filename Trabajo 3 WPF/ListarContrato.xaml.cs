@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Modelo;
+using Controlador;
 
 namespace Trabajo_3_WPF
 {
@@ -61,10 +63,11 @@ namespace Trabajo_3_WPF
 
                 ImageBrush _ib = new ImageBrush();
                 _ib.ImageSource = bitmap;
-                Window4.Background = _ib;
+                ListarContratoGeneral.Background = _ib;
 
                 row0.Background = Brushes.Black;
                 btnExit.Background = Brushes.Gray;
+                lblWindow.Foreground = Brushes.LightGray;
 
             }
             else
@@ -79,11 +82,11 @@ namespace Trabajo_3_WPF
 
                 ImageBrush _ib = new ImageBrush();
                 _ib.ImageSource = bitmap;
-                Window4.Background = _ib;
+                ListarContratoGeneral.Background = _ib;
 
                 row0.Background = Brushes.LightSteelBlue;
                 btnExit.Background = Brushes.LightSteelBlue;
-
+                lblWindow.Foreground = Brushes.Black;
             }
         }
 
@@ -110,6 +113,111 @@ namespace Trabajo_3_WPF
             }
             main.Show();
             this.Close();
+        }
+
+        private void tablaListarCliente_Initialized(object sender, EventArgs e)
+        {
+            ModeloContrato._contrato.Clear();
+            tablaListarContrato.ItemsSource = null;
+            tablaListarContrato.ItemsSource = ControladorContrato.TodosDatosContrato();
+        }
+
+        private void checkRut_Click(object sender, RoutedEventArgs e)
+        {
+            if (checkRut.IsChecked.Value)
+            {
+                lblRut.Visibility = Visibility.Visible;
+                txtRut.Visibility = Visibility.Visible;
+            }
+            if (!checkRut.IsChecked.Value)
+            {
+                lblRut.Visibility = Visibility.Collapsed;
+                txtRut.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void checkEmpresa_Click(object sender, RoutedEventArgs e)
+        {
+            if (checkEmpresa.IsChecked.Value)
+            {
+                lblEmpresa.Visibility = Visibility.Visible;
+                comboEmpresa.Visibility = Visibility.Visible;
+            }
+            if (!checkEmpresa.IsChecked.Value)
+            {
+                lblEmpresa.Visibility = Visibility.Collapsed;
+                comboEmpresa.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void checkActividad_Click(object sender, RoutedEventArgs e)
+        {
+            if (checkActividad.IsChecked.Value)
+            {
+                lblActividad.Visibility = Visibility.Visible;
+                comboActividad.Visibility = Visibility.Visible;
+            }
+            if (!checkActividad.IsChecked.Value)
+            {
+                lblActividad.Visibility = Visibility.Collapsed;
+                comboActividad.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void btnBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            do
+            {
+                if (!checkRut.IsChecked.Value && !checkEmpresa.IsChecked.Value && !checkActividad.IsChecked.Value)
+                {
+                    ModeloCliente._cliente.Clear();
+                    tablaListarContrato.ItemsSource = null;
+                    tablaListarContrato.ItemsSource = ControladorCliente.TodosDatosClientes();
+                    break;
+                }
+                if (checkRut.IsChecked.Value || checkEmpresa.IsChecked.Value || checkActividad.IsChecked.Value)
+                {
+                    ModeloCliente._cliente.Clear();
+                    tablaListarContrato.ItemsSource = null;
+                    if (checkRut.IsChecked.Value && checkEmpresa.IsChecked.Value)
+                    {
+                        tablaListarContrato.ItemsSource = ControladorCliente.FiltrarRutEmpresaListarCliente(txtRut.Text, comboEmpresa.SelectedItem.ToString());
+                        break;
+                    }
+                    if (checkRut.IsChecked.Value && checkActividad.IsChecked.Value)
+                    {
+                        tablaListarContrato.ItemsSource = ControladorCliente.FiltrarRutActividadListarCliente(txtRut.Text, comboActividad.SelectedIndex);
+                        break;
+                    }
+                    if (checkRut.IsChecked.Value && checkEmpresa.IsChecked.Value && checkActividad.IsChecked.Value)
+                    {
+                        tablaListarContrato.ItemsSource = ControladorCliente.FiltrarTodosListarCliente(txtRut.Text, comboEmpresa.SelectedItem.ToString(), comboActividad.SelectedIndex);
+                        break;
+                    }
+                    if (checkActividad.IsChecked.Value && checkEmpresa.IsChecked.Value)
+                    {
+                        tablaListarContrato.ItemsSource = ControladorCliente.FiltrarActividadEmpresaListarCliente(comboEmpresa.SelectedItem.ToString(), comboActividad.SelectedIndex);
+                        break;
+                    }
+                    if (checkRut.IsChecked.Value)
+                    {
+                        tablaListarContrato.ItemsSource = ControladorCliente.FiltrarRutListarCliente(txtRut.Text);
+                        break;
+                    }
+                    if (checkEmpresa.IsChecked.Value)
+                    {
+                        tablaListarContrato.ItemsSource = ControladorCliente.FiltrarEmpresaListarCliente(comboEmpresa.SelectedItem.ToString());
+                        break;
+                    }
+                    if (checkActividad.IsChecked.Value)
+                    {
+                        tablaListarContrato.ItemsSource = ControladorCliente.FiltrarActividadListarCliente(comboActividad.SelectedIndex);
+                        break;
+                    }
+                }
+
+                break;
+            } while (true);
         }
     }
 }

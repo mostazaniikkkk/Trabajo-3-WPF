@@ -15,6 +15,40 @@ namespace Controlador
 
         /*Lo que hace este método es cargar todos los datos asociados al rut, pasando el rut como parámetro
         y llenando la lista en modelo cliente con los datos dentro de la BD si los encuentra.*/
+
+        public static bool RetornarSiExisteRutContrato(string rut)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand("SELECT RutCliente FROM dbo.Contrato WHERE RutCliente = @rut", connection);
+
+                command.Parameters.AddWithValue("@rut", rut);
+
+                connection.Open();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                try
+                {
+                    Console.WriteLine(dt.Rows[0][0].ToString());
+                    if (dt.Rows[0][0] != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+        
         public static void CargarDatosAsociados(string rut)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
