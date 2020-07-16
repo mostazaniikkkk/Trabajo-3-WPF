@@ -8,6 +8,7 @@ namespace Modelo
 {
     public class ModeloContrato
     {
+        public static List<string> baseContrato = new List<string>();
         //lista modelo
         static List<ModeloContrato> contrato = new List<ModeloContrato>();
         public static List<ModeloContrato> _contrato { get { return contrato; } }
@@ -26,7 +27,19 @@ namespace Modelo
         public double ValorTotalContrato { get; set; }
         public string Observaciones { get; set; }
 
+        static ModeloContrato instancia;
         public ModeloContrato(){ }
 
+        public static ModeloContrato Singleton
+        {
+            get
+            {
+                if (instancia == null)
+                {
+                    instancia = new ModeloContrato();
+                }
+                return instancia;
+            }
+        }
     }
 }

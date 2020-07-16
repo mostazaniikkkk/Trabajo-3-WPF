@@ -529,5 +529,30 @@ namespace Trabajo_3_WPF
             dialogRutNoEncontrado.IsEnabled = false;
             dialogRutNoEncontrado.IsOpen = false;
         }
+
+        private void btnBuscarListadoCliente_Click(object sender, RoutedEventArgs e)
+        {
+            ListarContratoEmergente listar = new ListarContratoEmergente();
+            if (btnAltoContraste.Background == Brushes.Gray)
+            {
+                listar.btnAltoContraste_Click(null, null);
+            }
+            if (ControladorContrato.isFilasTablaContrato())
+            {
+                listar.Show();
+                this.Close();
+            }
+            else
+            {
+                dialogIsData.IsEnabled = true;
+                dialogIsData.IsOpen = true;
+            }
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            dialogIsData.IsEnabled = false;
+            dialogIsData.IsOpen = false;
+        }
     }
 }

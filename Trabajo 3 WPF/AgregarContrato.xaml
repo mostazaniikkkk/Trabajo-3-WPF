@@ -121,6 +121,12 @@
                 <materialDesign:PackIcon Kind="Check"/>
             </Button>
             <Label x:Name="lblCosas" Content="" HorizontalAlignment="Left" Margin="75,-11,0,0" VerticalAlignment="Top" Width="99"/>
+            <Button  x:Name="btnBuscarListadoCliente" HorizontalAlignment="Left" Margin="330,175,0,0" VerticalAlignment="Top" Width="28" Height="27" Click="btnBuscarListadoCliente_Click" Padding="0" Background="DodgerBlue" BorderBrush="Transparent" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                <Button.ToolTip>
+                    <TextBlock><Run Text="Buscar en listado de clientes"/></TextBlock>
+                </Button.ToolTip>
+                <materialDesign:PackIcon Kind="Search"/>
+            </Button>
         </Grid>
         <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialogAgregarContrato" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
             <materialDesign:DialogHost.DialogContent>
@@ -143,6 +149,14 @@
                 <StackPanel Margin="15">
                     <TextBlock Text="El rut no coincide con ningún cliente..."/>
                     <Button VerticalAlignment="Center" Click="Button_Click_6" Content="Aceptar" HorizontalAlignment="Center" Margin="0,20,0,0" Width="86" Height="23"/>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+        <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialogIsData" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="15">
+                    <TextBlock Text="No existen datos dentro de la base de datos..."/>
+                    <Button VerticalAlignment="Center" Click="Button_Click_7" Content="Aceptar" HorizontalAlignment="Center" Margin="0,20,0,0" Width="86" Height="23"/>
                 </StackPanel>
             </materialDesign:DialogHost.DialogContent>
         </materialDesign:DialogHost>

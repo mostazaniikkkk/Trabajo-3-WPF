@@ -17,12 +17,13 @@ using Controlador;
 namespace Trabajo_3_WPF
 {
     /// <summary>
-    /// Lógica de interacción para ListarContrato.xaml
+    /// Lógica de interacción para ListarContratoEmergente.xaml
     /// </summary>
-    public partial class ListarContrato : Window
+    public partial class ListarContratoEmergente : Window
     {
-        public ListarContrato()
+        public ListarContratoEmergente()
         {
+            InitializeComponent();
             InitializeComponent();
             comboEvento.Items.Add("Seleccionar");
             comboEvento.Items.Add("Coffee Break");
@@ -78,7 +79,7 @@ namespace Trabajo_3_WPF
 
                 ImageBrush _ib = new ImageBrush();
                 _ib.ImageSource = bitmap;
-                ListarContratoGeneral.Background = _ib;
+                GridListarContratoEmergente.Background = _ib;
 
                 row0.Background = Brushes.Black;
                 btnExit.Background = Brushes.Gray;
@@ -97,7 +98,7 @@ namespace Trabajo_3_WPF
 
                 ImageBrush _ib = new ImageBrush();
                 _ib.ImageSource = bitmap;
-                ListarContratoGeneral.Background = _ib;
+                GridListarContratoEmergente.Background = _ib;
 
                 row0.Background = Brushes.LightSteelBlue;
                 btnExit.Background = Brushes.LightSteelBlue;
@@ -253,6 +254,105 @@ namespace Trabajo_3_WPF
                 lblNroContrato.Visibility = Visibility.Collapsed;
                 txtNroContrato.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void tablaListarContrato_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var grid = sender as DataGrid;
+            var selected = grid.SelectedItems;
+
+            // ... Add all Names to a List.
+            //string numeroContrato = "";
+
+            foreach (var item in selected)
+            {
+                var contrato = item as ModeloContrato;
+                if (contrato != null)
+                {
+                    try
+                    {
+                        string numeroContrato = contrato.NroContrato;
+                        ControladorContrato.CargarDatosAsociados(numeroContrato);
+                        AgregarContrato aContrato = new AgregarContrato();
+                        aContrato.txtNumeroContrato.Text = numeroContrato;
+                        Console.WriteLine(ModeloCliente.baseCliente[0]);
+                        string fechaCreacion = ModeloCliente.baseCliente[0];
+                        Console.WriteLine(fechaCreacion);
+                        string fechaCreacionRecortada = fechaCreacion.Remove(11);;
+                        aContrato.txtFechaCreacion.Text = fechaCreacionRecortada;
+                        string fechaTermino = ModeloCliente.baseCliente[1];
+                        string fechaTerminoRecortada = fechaCreacion.Remove(11);
+                        aContrato.txtFechaTermino.Text = fechaTerminoRecortada;
+
+                        aContrato.txtRutCliente.Text = ModeloCliente.baseCliente[2];
+                        string evento = ModeloCliente.baseCliente[3];
+                        aContrato.comboEvento.SelectedIndex = int.Parse(evento[0].ToString());
+                        string modalidad = ModeloCliente.baseCliente[4];
+                        if (modalidad == "CB001")
+                        {
+                            aContrato.comboModalidad.SelectedIndex = 1;
+                        }
+                        if (modalidad == "CB002")
+                        {
+                            aContrato.comboModalidad.SelectedIndex = 2;
+                        }
+                        if (modalidad == "CB003")
+                        {
+                            aContrato.comboModalidad.SelectedIndex = 3;
+                        }
+                        if (modalidad == "CE001")
+                        {
+                            aContrato.comboModalidad.SelectedIndex = 4;
+                        }
+                        if (modalidad == "CE002")
+                        {
+                            aContrato.comboModalidad.SelectedIndex = 5;
+                        }
+                        if (modalidad == "CO001")
+                        {
+                            aContrato.comboModalidad.SelectedIndex = 6;
+                        }
+                        if (modalidad == "CO002")
+                        {
+                            aContrato.comboModalidad.SelectedIndex = 7;
+                        }
+                        string fechaHoraInicio = ModeloCliente.baseCliente[5];
+                        string fechaHoraInicioRecortada = fechaHoraInicio.Remove(1,10);
+                        aContrato.comboFechaHoraInicio.Text = fechaHoraInicioRecortada;
+
+                        string fechaHoraTermino = ModeloCliente.baseCliente[6];
+                        string fechaHoraTerminoRecortada = fechaHoraTermino.Remove(1, 10);
+                        aContrato.comboFechaHoraInicio.Text = fechaHoraTerminoRecortada;
+
+                        aContrato.txtAsistentes.Text = ModeloCliente.baseCliente[7];
+                        aContrato.txtPersonalAdicional.Text = ModeloCliente.baseCliente[8];
+                        aContrato.txtValorTotalContrato.Text = ModeloCliente.baseCliente[9];
+                        aContrato.txtObservaciones.Text = ModeloCliente.baseCliente[10];
+
+
+                        ModeloContrato.baseContrato.Clear();
+                        aContrato.Show();
+                        this.Close();
+                        break;
+                    }
+                    catch
+                    {
+                        dialogSeleccionErronea.IsEnabled = true;
+                        dialogSeleccionErronea.IsOpen = true;
+                    }
+
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            dialogSeleccionErronea.IsEnabled = false;
+            dialogSeleccionErronea.IsOpen = false;
         }
     }
 }

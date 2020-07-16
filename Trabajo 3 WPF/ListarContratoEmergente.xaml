@@ -1,4 +1,4 @@
-﻿<Window x:Class="Trabajo_3_WPF.ListarContrato"
+﻿<Window x:Class="Trabajo_3_WPF.ListarContratoEmergente"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -13,7 +13,7 @@
         mc:Ignorable="d"
         Title="Window1" Height="420" Width="559.726" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" >
 
-    <Grid x:Name="ListarContratoGeneral">
+    <Grid x:Name="GridListarContratoEmergente">
         <Grid.Background>
             <ImageBrush ImageSource="Assets/Imagenes/BG00.png"/>
         </Grid.Background>
@@ -50,7 +50,7 @@
                 <ImageBrush ImageSource="Assets/Imagenes/onBreakHD.png" Stretch="UniformToFill"/>
             </Label.Background>
         </Label>
-        <DataGrid x:Name="tablaListarContrato" AutoGenerateColumns="True" Margin="24,169,147,30" Grid.Row="1" Initialized="tablaListarCliente_Initialized"/>
+        <DataGrid x:Name="tablaListarContrato" AutoGenerateColumns="True" Margin="24,169,147,30" Grid.Row="1" Initialized="tablaListarCliente_Initialized" SelectionChanged="tablaListarContrato_SelectionChanged"/>
         <Label x:Name="lblWindow" Content="Listar Contrato" HorizontalAlignment="Left" Margin="237,10,0,0" VerticalAlignment="Top" FontFamily="Script MT Bold" FontWeight="Normal" FontSize="17" Grid.Row="1" Width="117"/>
         <CheckBox x:Name="checkNroContrato" Content="Numero contrato" HorizontalAlignment="Left" Margin="413,199,0,0" Grid.Row="1" VerticalAlignment="Top" Click="nroContrato_Click_1" FontStyle="Italic"/>
         <CheckBox x:Name="checkRut" Content="Rut" HorizontalAlignment="Left" Margin="413,221,0,0" Grid.Row="1" VerticalAlignment="Top" Click="checkRut_Click" FontStyle="Italic"/>
@@ -71,5 +71,13 @@
             </Button.ToolTip>
             <materialDesign:PackIcon Kind="Search"/>
         </Button>
+        <materialDesign:DialogHost IsEnabled="False" IsOpen="False" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="dialogSeleccionErronea" Margin="240,136,204,191" Grid.Row="1" Width="106" Height="63">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="15">
+                    <TextBlock Text="Error de selección erronea, seleccione otra fila..."/>
+                    <Button VerticalAlignment="Center" Click="Button_Click" Content="Aceptar" HorizontalAlignment="Center" Margin="0,20,0,0" Width="86" Height="23"/>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
     </Grid>
 </Window>
